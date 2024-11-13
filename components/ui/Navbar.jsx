@@ -8,10 +8,22 @@ import ProfileAPI from "@/lib/api/profile";
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "./sheet";
+import {
+  FaRegUser,
+  FaRegChartBar,
+  FaCoins,
+  FaPhone,
+  FaInfoCircle,
+  FaHome,
+} from "react-icons/fa";
+import ModeToggle from "../theme/ModeToggle";
+import SignOutBtn from "../actions/SignOutBtn";
 
 const Navbar = () => {
   const api = new ProfileAPI();
@@ -33,40 +45,16 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="w-full top-0 border-b shadow-sm bg-background/70 backdrop-blur-sm sticky flex items-center justify-between p-2">
-      <div className="flex items-center gap-2">
+    <nav className="w-full top-0 border-b shadow-sm bg-background/70 backdrop-blur-sm sticky flex items-center justify-between p-2 sm:mt-5 sm:top-5 sm:border sm:rounded-xl sm:max-w-[50rem] mx-auto">
+      <span className="flex items-center gap-1">
         <Logo />
-        <ul className="flex items-center gap-3">
-          <li>
-            <Link
-              href="/"
-              className="text-muted-foreground hover:text-foreground"
-            >
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/about"
-              className="text-muted-foreground hover:text-foreground"
-            >
-              About
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/contact"
-              className="text-muted-foreground hover:text-foreground"
-            >
-              Contact
-            </Link>
-          </li>
-        </ul>
-      </div>
+        <span className="text-3xl font-bold">AUCSOME</span>
+      </span>
+
       {user ? (
         <Sheet>
           <SheetTrigger asChild>
-            <Avatar>
+            <Avatar className="cursor-pointer">
               <AvatarImage
                 src={user.avatar?.url}
                 alt={user.avatar?.alt || "User avatar"}
@@ -74,14 +62,80 @@ const Navbar = () => {
               <AvatarFallback>{user.name}</AvatarFallback>
             </Avatar>
           </SheetTrigger>
-          <SheetContent>
-            <SheetHeader>
-              <SheetTitle>@{user.name}</SheetTitle>
-            </SheetHeader>
-            <ul>
-              <li>Wallet: {user.credits} credits</li>
-              <li></li>
-            </ul>
+          <SheetContent className="flex flex-col justify-between">
+            <div className="grid gap-5">
+              <SheetHeader>
+                <SheetTitle>
+                  <span className="flex items-center gap-2">
+                    <Avatar className="cursor-pointer">
+                      <AvatarImage
+                        src={user.avatar?.url}
+                        alt={user.avatar?.alt || "User avatar"}
+                      />
+                      <AvatarFallback>{user.name}</AvatarFallback>
+                    </Avatar>
+                    {user.name}
+                  </span>
+                </SheetTitle>
+              </SheetHeader>
+              <ul className="text-muted-foreground">
+                <li className="hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2">
+                  <FaCoins /> {user.credits} Credits
+                </li>
+                <li>
+                  <Link
+                    href={`/user/${user.name}`}
+                    className="hover:bg-muted hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2"
+                  >
+                    <FaRegUser /> Profile
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/"
+                    className="hover:bg-muted hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2"
+                  >
+                    <FaRegChartBar /> My Biddings
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    href="/"
+                    className="hover:bg-muted hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2"
+                  >
+                    <FaHome />
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/about"
+                    className="hover:bg-muted hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2"
+                  >
+                    <FaInfoCircle />
+                    About
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/contact"
+                    className="hover:bg-muted hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2"
+                  >
+                    <FaPhone />
+                    Contact
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div className="flex">
+              <span className="mr-auto">
+                <SignOutBtn />
+              </span>
+              <span className="ml-auto">
+                <ModeToggle />
+              </span>
+            </div>
           </SheetContent>
         </Sheet>
       ) : (
