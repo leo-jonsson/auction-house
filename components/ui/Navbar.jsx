@@ -45,7 +45,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="w-full top-0 border-b shadow-sm bg-background/70 backdrop-blur-sm sticky flex items-center justify-between p-2 sm:mt-5 sm:top-5 sm:border sm:rounded-xl sm:max-w-[50rem] mx-auto">
+    <nav className="w-full top-0 border-b shadow-sm sm:shadow-none bg-background/70 backdrop-blur-sm sticky flex items-center justify-between p-2 sm:mt-5 sm:top-5 sm:border sm:rounded-xl sm:max-w-[50rem] mx-auto">
       <span className="flex items-center gap-1">
         <Logo />
         <span className="text-3xl font-bold">AUCSOME</span>
@@ -140,10 +140,10 @@ const Navbar = () => {
         </Sheet>
       ) : (
         <Link
-          href="/auth/register"
+          href="/auth/login"
           className="px-4 py-2 bg-primary text-primary-foreground rounded-lg"
         >
-          Register
+          Login
         </Link>
       )}
     </nav>
