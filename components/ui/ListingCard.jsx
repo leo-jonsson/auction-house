@@ -1,14 +1,15 @@
 import React from "react";
 import { Card, CardContent, CardHeader } from "./card";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
-import { timeUntil } from "@/lib/utilities/date";
+import { timeUntil } from "@/lib/utilities/date.jsx";
+import Bidder from "@/lib/utilities/getBidder";
 
 const ListingCard = ({ listing }) => {
   // Extract the first image from the listing.media array if it exists
   const mainImage = listing.media?.[0];
 
   return (
-    <Card className="inview-animate-hide relative">
+    <Card className="relative inview-animate-hide">
       <CardHeader>
         <div className="flex justify-between w-full items-center">
           <div className="flex items-center gap-2">
@@ -21,7 +22,8 @@ const ListingCard = ({ listing }) => {
             </Avatar>
             <span>{listing.seller.name}</span>
           </div>
-          <span>{timeUntil(listing.endsAt)}</span>
+
+          {timeUntil(listing.endsAt)}
         </div>
       </CardHeader>
       <CardContent>
@@ -30,15 +32,17 @@ const ListingCard = ({ listing }) => {
           <img
             src={mainImage?.url || "/placeholder.png"}
             alt={mainImage?.alt || "Listing image"}
-            className="aspect-square object-cover rounded-lg w-full"
+            className="w-full h-auto max-h-[20rem] object-cover rounded-lg"
           />
           <h2>{listing.title}</h2>
 
-          <p>
-            {listing.tags.map((tag, idx) => (
-              <span key={idx}>#{tag}</span>
-            ))}
-          </p>
+          {listing.bids.length > 0 ? (
+            <div>
+              <Bidder array={listing.bids} />
+            </div>
+          ) : (
+            <p className="text-sm italic text-muted-foreground">No bids yet</p>
+          )}
         </div>
       </CardContent>
     </Card>

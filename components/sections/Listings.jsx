@@ -11,17 +11,53 @@ const Listings = () => {
   const api = new ListingAPI();
   const [isLoading, setIsLoading] = useState(false);
   const [listings, setListings] = useState([]);
-  const [limit] = useState(12);
+  const [limit] = useState(20);
   const [totalPages, setTotalPages] = useState(1);
   const [page, setPage] = useState(1);
-
   const observerRef = useRef(null); // Store observer instance
+  const headingRef = useRef(null); // Use ref for scrolling
 
   const fetchListings = async (currentPage) => {
     setIsLoading(true);
     try {
       const data = await api.listings.readAll(currentPage, limit);
-      setListings(data.data);
+
+      // Check if an image URL is valid by attempting to load the image
+      const checkImageValidity = (url) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => resolve(true); // Image loaded successfully
+          img.onerror = () => reject(false); // Image failed to load
+          img.src = url;
+        });
+      };
+
+      // Filter out listings with invalid image URLs
+      const validListings = await Promise.all(
+        data.data.map(async (listing) => {
+          const validMedia = await Promise.all(
+            listing.media.map(async (mediaItem) => {
+              try {
+                // Check if the image URL is valid
+                const isValid = await checkImageValidity(mediaItem.url);
+                return isValid ? mediaItem : null; // Return valid media item or null
+              } catch (error) {
+                return null; // Invalid image URL
+              }
+            })
+          );
+
+          // Include the listing if it has at least one valid image
+          return validMedia.some((valid) => valid !== null) ? listing : null;
+        })
+      );
+
+      // Remove null listings
+      const filteredListings = validListings.filter(
+        (listing) => listing !== null
+      );
+
+      setListings(filteredListings);
       setTotalPages(data.meta.pageCount || 1);
     } catch (error) {
       console.error("Error fetching listings:", error);
@@ -64,28 +100,48 @@ const Listings = () => {
     };
   }, [listings]); // Re-run only when new listings are rendered
 
+  // Utility function to chunk array into 3 parts
+  const chunkListings = (array, chunkSize) => {
+    const chunks = [];
+    for (let i = 0; i < array.length; i += chunkSize) {
+      chunks.push(array.slice(i, i + chunkSize));
+    }
+    return chunks;
+  };
+
+  const columns = chunkListings(listings, Math.ceil(listings.length / 3));
+
   const handleNextPage = () => {
-    if (page < totalPages) setPage((prevPage) => prevPage + 1);
+    if (page < totalPages) {
+      headingRef.current.scrollIntoView({ behavior: "smooth" });
+      setPage((prevPage) => prevPage + 1);
+    }
   };
 
   const handlePrevPage = () => {
-    if (page > 1) setPage((prevPage) => prevPage - 1);
+    if (page > 1) {
+      headingRef.current.scrollIntoView({ behavior: "smooth" });
+
+      setPage((prevPage) => prevPage - 1);
+    }
   };
 
   return (
     <section className="grid gap-3 mt-3">
-      <h1 className="text-5xl px-3">Listings</h1>
-      <div className="grid px-3 sm:grid-cols-2 lg:grid-cols-3 gap-2 lg:px-0">
+      <h1 className="text-5xl px-3" ref={headingRef}>
+        Listings
+      </h1>
+      <div className="grid grid-cols-3 gap-4 px-3 lg:px-0">
         {isLoading
           ? Array.from({ length: limit }).map((_, index) => (
               <Skeleton key={index} className="size-full aspect-[3/4]" />
             ))
-          : listings.map((listing, idx) => (
-              <ListingCard
-                key={idx}
-                listing={listing}
-                className="inview-animate-hide"
-              />
+          : columns.map((column, colIdx) => (
+              <div key={colIdx} className="space-y-3">
+                {column.map((listing, idx) => (
+                  <ListingCard key={idx} listing={listing} />
+                ))}
+              </div>
             ))}
       </div>
 
