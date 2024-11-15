@@ -1,23 +1,27 @@
 import React from "react";
 import { Card, CardContent, CardHeader } from "./card";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
+import { timeUntil } from "@/lib/utilities/date";
 
 const ListingCard = ({ listing }) => {
   // Extract the first image from the listing.media array if it exists
   const mainImage = listing.media?.[0];
 
   return (
-    <Card>
+    <Card className="inview-animate-hide relative">
       <CardHeader>
         <div className="flex justify-between w-full items-center">
-          <Avatar>
-            <AvatarImage
-              src={listing.seller.avatar.url}
-              alt={listing.seller.name}
-            />
-            <AvatarFallback>{listing.seller.name.charAt(0)}</AvatarFallback>
-          </Avatar>
-          <span>{listing.seller.name}</span>
+          <div className="flex items-center gap-2">
+            <Avatar>
+              <AvatarImage
+                src={listing.seller.avatar.url}
+                alt={listing.seller.name}
+              />
+              <AvatarFallback>{listing.seller.name.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <span>{listing.seller.name}</span>
+          </div>
+          <span>{timeUntil(listing.endsAt)}</span>
         </div>
       </CardHeader>
       <CardContent>
@@ -26,7 +30,7 @@ const ListingCard = ({ listing }) => {
           <img
             src={mainImage?.url || "/placeholder.png"}
             alt={mainImage?.alt || "Listing image"}
-            className="aspect-[3/4] object-cover rounded-lg"
+            className="aspect-square object-cover rounded-lg"
           />
           <h2>{listing.title}</h2>
 
