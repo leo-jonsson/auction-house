@@ -49,7 +49,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="w-full top-0 border-b shadow-sm sm:shadow-none bg-background/70 backdrop-blur-sm sticky flex items-center justify-between p-2 z-[50]">
+    <nav className="w-full top-0 border-b shadow-sm sm:shadow-none bg-background/70 backdrop-blur-md sticky flex items-center justify-between p-2 z-[50]">
       <div className="flex justify-between max-w-[60rem] w-full mx-auto">
         <span className="flex items-center gap-1">
           <Logo />

@@ -11,7 +11,7 @@ const Listings = () => {
   const api = new ListingAPI();
   const [isLoading, setIsLoading] = useState(false);
   const [listings, setListings] = useState([]);
-  const [limit] = useState(20);
+  const [limit] = useState(30);
   const [totalPages, setTotalPages] = useState(1);
   const [page, setPage] = useState(1);
   const observerRef = useRef(null); // Store observer instance
@@ -131,13 +131,13 @@ const Listings = () => {
       <h1 className="text-5xl px-3" ref={headingRef}>
         Listings
       </h1>
-      <div className="grid grid-cols-3 gap-4 px-3 lg:px-0">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2 px-3 lg:px-0">
         {isLoading
           ? Array.from({ length: limit }).map((_, index) => (
               <Skeleton key={index} className="size-full aspect-[3/4]" />
             ))
           : columns.map((column, colIdx) => (
-              <div key={colIdx} className="space-y-3">
+              <div key={colIdx} className="space-y-2">
                 {column.map((listing, idx) => (
                   <ListingCard key={idx} listing={listing} />
                 ))}

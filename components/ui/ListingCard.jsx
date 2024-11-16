@@ -9,7 +9,7 @@ const ListingCard = ({ listing }) => {
   const mainImage = listing.media?.[0];
 
   return (
-    <Card className="relative inview-animate-hide">
+    <Card className="relative inview-animate-hide rounded-lg">
       <CardHeader>
         <div className="flex justify-between w-full items-center">
           <div className="flex items-center gap-2">
@@ -32,7 +32,7 @@ const ListingCard = ({ listing }) => {
           <img
             src={mainImage?.url || "/placeholder.png"}
             alt={mainImage?.alt || "Listing image"}
-            className="w-full h-auto max-h-[20rem] object-cover rounded-lg"
+            className="w-full h-auto max-h-[25rem] object-cover rounded-lg"
           />
           <h2>{listing.title}</h2>
 
