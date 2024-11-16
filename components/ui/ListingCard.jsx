@@ -1,8 +1,9 @@
 import React from "react";
-import { Card, CardContent, CardHeader } from "./card";
+import { Card, CardContent, CardFooter, CardHeader } from "./card";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { timeUntil } from "@/lib/utilities/date.jsx";
 import Bidder from "@/lib/utilities/getBidder";
+import { Badge } from "./badge";
 
 const ListingCard = ({ listing }) => {
   // Extract the first image from the listing.media array if it exists
@@ -26,13 +27,13 @@ const ListingCard = ({ listing }) => {
           {timeUntil(listing.endsAt)}
         </div>
       </CardHeader>
-      <CardContent>
-        <div className="grid gap-3">
+      <CardContent className="flex flex-col justify-between">
+        <div className="flex flex-col justify-between gap-2">
           {/* Use main image if available, otherwise fallback to /placeholder.png */}
           <img
             src={mainImage?.url || "/placeholder.png"}
             alt={mainImage?.alt || "Listing image"}
-            className="aspect-[3/4] max-h-[24rem] w-full object-cover rounded-lg"
+            className="aspect-square max-h-[15rem] w-full object-cover rounded-lg"
           />
           <h2>{listing.title}</h2>
 
@@ -41,8 +42,15 @@ const ListingCard = ({ listing }) => {
               <Bidder array={listing.bids} />
             </div>
           ) : (
-            <p className="text-sm italic text-muted-foreground">No bids yet</p>
+            <p className="text-sm text-muted-foreground">No bids yet</p>
           )}
+          <div className="flex gap-2 mt-3">
+            {listing.tags.map((tag, idx) => (
+              <Badge variant="outline" className="flex" key={idx}>
+                {tag}
+              </Badge>
+            ))}
+          </div>
         </div>
       </CardContent>
     </Card>

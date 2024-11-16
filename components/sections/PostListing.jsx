@@ -18,7 +18,8 @@ const PostListing = () => {
   };
 
   return (
-    <section className="min-h-[80vh] flex items-center justify-center w-full max-w-[60rem] mx-auto">
+    <section className="min-h-[80vh] flex flex-col gap-2 items-center justify-center w-full max-w-[45rem] mx-auto">
+      <h1 className="text-5xl">Create listing</h1>
       <AuctionForm onSubmit={handleFormSubmit} />
     </section>
   );

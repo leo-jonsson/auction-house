@@ -4,8 +4,9 @@ const Bidder = ({ array }) => {
   const bid = array[array.length - 1]; // Last bid
 
   return (
-    <p className="text-muted-foreground text-sm italic">
-      {bid.bidder.name} has offered {bid.amount} credits for this item
+    <p className="text-muted-foreground text-sm">
+      {bid.bidder.name} has offered{" "}
+      <span className="text-primary">{bid.amount} credits</span> for this item
     </p>
   );
 };

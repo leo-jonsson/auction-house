@@ -8,6 +8,7 @@ import { Calendar } from "../ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
+import { Textarea } from "../ui/textarea";
 
 export default function AuctionForm({ onSubmit }) {
   const [title, setTitle] = useState("");
@@ -74,39 +75,17 @@ export default function AuctionForm({ onSubmit }) {
       </div>
       <div className="grid gap-2">
         <Label htmlFor="description">Description</Label>
-        <Input
+        <Textarea
           id="description"
           type="text"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="Enter a description"
+          placeholder="Tell us more about the thing you are selling"
         />
       </div>
 
       <div>
-        <div className="flex items-center justify-between">
-          <Label>Media (max 8)</Label>
-          <div className="flex gap-2 items-center mb-2">
-            <Button
-              type="button"
-              onClick={removeMediaField}
-              disabled={media.length <= 1}
-              variant="outline"
-              size="icon"
-            >
-              -
-            </Button>
-            <Button
-              type="button"
-              onClick={addMediaField}
-              disabled={media.length >= 8}
-              variant="outline"
-              size="icon"
-            >
-              +
-            </Button>
-          </div>
-        </div>
+        <Label className="mb-2">Media (max 8)</Label>
         {media.map((item, index) => (
           <div key={index} className="grid gap-2 mb-2 items-center relative">
             <div className="flex gap-2">
@@ -128,10 +107,30 @@ export default function AuctionForm({ onSubmit }) {
             </div>
           </div>
         ))}
+        <div className="flex gap-2 items-center ">
+          <Button
+            type="button"
+            onClick={removeMediaField}
+            disabled={media.length <= 1}
+            variant="outline"
+            size="icon"
+          >
+            -
+          </Button>
+          <Button
+            type="button"
+            onClick={addMediaField}
+            disabled={media.length >= 8}
+            variant="outline"
+            size="icon"
+          >
+            +
+          </Button>
+        </div>
       </div>
-      <div className="grid sm:grid-cols-2 gap-2">
-        <div className="grid gap-2">
-          <Label>Ends At *</Label>
+      <div className="flex items-center gap-2">
+        <div className="grid gap-2 basis-1/3">
+          <Label>Ends At</Label>
           <Popover>
             <PopoverTrigger asChild>
               <Button
@@ -152,7 +151,7 @@ export default function AuctionForm({ onSubmit }) {
             </PopoverContent>
           </Popover>
         </div>
-        <div className="grid gap-2">
+        <div className="grid gap-2 basis-2/3">
           <Label htmlFor="tags">Tags (comma-separated)</Label>
           <Input
             id="tags"

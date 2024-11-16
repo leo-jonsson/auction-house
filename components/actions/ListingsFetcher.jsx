@@ -16,6 +16,7 @@ const ListingFetcher = ({
     try {
       const data = await api.listings.readAll(currentPage, limit);
       setListings(data.data);
+      console.log(data.data);
       setTotalPages(data.meta.pageCount || 1);
     } catch (error) {
       console.error("Error fetching listings:", error);
