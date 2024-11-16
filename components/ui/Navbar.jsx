@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Logo from "./Logo";
-import { loggedInUser } from "@/lib/utilities/getUser"; // Make sure loggedInUser provides the current user's name
+import { loggedInUser } from "@/lib/utilities/getUser";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import Link from "next/link";
 import ProfileAPI from "@/lib/api/profile";
@@ -11,6 +11,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetClose,
 } from "./sheet";
 import {
   FaRegUser,
@@ -20,6 +21,7 @@ import {
   FaInfoCircle,
   FaHome,
   FaBars,
+  FaPlusCircle,
 } from "react-icons/fa";
 import ModeToggle from "../theme/ModeToggle";
 import SignOutBtn from "../actions/SignOutBtn";
@@ -100,48 +102,69 @@ const Navbar = () => {
                     <FaCoins /> {user.credits} Credits
                   </li>
                   <li>
-                    <Link
-                      href={`/user/${user.name}`}
-                      className="hover:bg-muted hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2"
-                    >
-                      <FaRegUser /> Profile
-                    </Link>
+                    <SheetClose asChild>
+                      <Link
+                        href={`/user/${user.name}`}
+                        className="hover:bg-muted hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2"
+                      >
+                        <FaRegUser /> Profile
+                      </Link>
+                    </SheetClose>
                   </li>
                   <li>
-                    <Link
-                      href="/"
-                      className="hover:bg-muted hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2"
-                    >
-                      <FaRegChartBar /> My Biddings
-                    </Link>
+                    <SheetClose asChild>
+                      <Link
+                        href="/"
+                        className="hover:bg-muted hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2"
+                      >
+                        <FaRegChartBar /> My Biddings
+                      </Link>
+                    </SheetClose>
                   </li>
 
                   <li>
-                    <Link
-                      href="/"
-                      className="hover:bg-muted hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2"
-                    >
-                      <FaHome />
-                      Home
-                    </Link>
+                    <SheetClose asChild>
+                      <Link
+                        href="/"
+                        className="hover:bg-muted hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2"
+                      >
+                        <FaHome />
+                        Home
+                      </Link>
+                    </SheetClose>
                   </li>
                   <li>
-                    <Link
-                      href="/about"
-                      className="hover:bg-muted hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2"
-                    >
-                      <FaInfoCircle />
-                      About
-                    </Link>
+                    <SheetClose asChild>
+                      <Link
+                        href="/about"
+                        className="hover:bg-muted hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2"
+                      >
+                        <FaInfoCircle />
+                        About
+                      </Link>
+                    </SheetClose>
                   </li>
                   <li>
-                    <Link
-                      href="/contact"
-                      className="hover:bg-muted hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2"
-                    >
-                      <FaPhone />
-                      Contact
-                    </Link>
+                    <SheetClose asChild>
+                      <Link
+                        href="/contact"
+                        className="hover:bg-muted hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2"
+                      >
+                        <FaPhone />
+                        Contact
+                      </Link>
+                    </SheetClose>
+                  </li>
+                  <li>
+                    <SheetClose asChild>
+                      <Link
+                        href="/listings/post"
+                        className="hover:bg-muted hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2"
+                      >
+                        <FaPlusCircle />
+                        Create listing
+                      </Link>
+                    </SheetClose>
                   </li>
                 </ul>
               </div>
@@ -181,13 +204,19 @@ const Navbar = () => {
                   </SheetHeader>
                   <ul className="text-muted-foreground grid gap-3">
                     <li>
-                      <Link href="/">Home</Link>
+                      <SheetClose asChild>
+                        <Link href="/">Home</Link>
+                      </SheetClose>
                     </li>
                     <li>
-                      <Link href="/listings">Listings</Link>
+                      <SheetClose asChild>
+                        <Link href="/listings">Listings</Link>
+                      </SheetClose>
                     </li>
                     <li>
-                      <Link href="/contact">Contact</Link>
+                      <SheetClose asChild>
+                        <Link href="/contact">Contact</Link>
+                      </SheetClose>
                     </li>
                   </ul>
                 </div>

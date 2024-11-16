@@ -32,7 +32,7 @@ const ListingCard = ({ listing }) => {
           <img
             src={mainImage?.url || "/placeholder.png"}
             alt={mainImage?.alt || "Listing image"}
-            className="w-full h-auto max-h-[25rem] object-cover rounded-lg"
+            className="aspect-[3/4] max-h-[24rem] w-full object-cover rounded-lg"
           />
           <h2>{listing.title}</h2>
 
