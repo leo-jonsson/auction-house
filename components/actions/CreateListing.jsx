@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
@@ -9,6 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Textarea } from "../ui/textarea";
+import LoadingButton from "../ui/LoadingButton";
 
 export default function AuctionForm({ onSubmit }) {
   const [title, setTitle] = useState("");
@@ -17,6 +16,7 @@ export default function AuctionForm({ onSubmit }) {
   const [media, setMedia] = useState([{ url: "", alt: "" }]); // Start with one media field
   const [endsAt, setEndsAt] = useState(null);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false); // Loading state
 
   // Handler to add a new media field
   const addMediaField = () => {
@@ -42,13 +42,15 @@ export default function AuctionForm({ onSubmit }) {
     setMedia(updatedMedia);
   };
 
-  // Submit handler
-  const handleSubmit = (e) => {
+  // Submit handler with loading state
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!title || !endsAt) {
       setError("Title and expiry date are required.");
       return;
     }
+    setLoading(true); // Set loading state to true on submit
+
     const tagsArray = tags ? tags.split(",").map((tag) => tag.trim()) : [];
     const formData = {
       title,
@@ -57,7 +59,14 @@ export default function AuctionForm({ onSubmit }) {
       media: media.filter((item) => item.url), // Exclude empty media entries
       endsAt: endsAt.toISOString(), // Convert Date instance to ISO string
     };
-    onSubmit(formData);
+
+    try {
+      await onSubmit(formData); // Assuming onSubmit is an async function
+    } catch (err) {
+      setError("An error occurred during submission.");
+    } finally {
+      setLoading(false); // Set loading state to false when done
+    }
   };
 
   return (
@@ -86,6 +95,7 @@ export default function AuctionForm({ onSubmit }) {
 
       <div>
         <Label className="mb-2">Media (max 8)</Label>
+
         {media.map((item, index) => (
           <div key={index} className="grid gap-2 mb-2 items-center relative">
             <div className="flex gap-2">
@@ -163,9 +173,13 @@ export default function AuctionForm({ onSubmit }) {
         </div>
       </div>
       {error && <p className="text-destructive">{error}</p>}
-      <Button type="submit" className="text-white">
-        Submit
-      </Button>
+      {loading ? (
+        <LoadingButton message={"Posting"} />
+      ) : (
+        <Button type="submit" className="w-full">
+          Create listing{" "}
+        </Button>
+      )}
     </form>
   );
 }

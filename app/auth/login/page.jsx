@@ -38,7 +38,7 @@ const LoginForm = () => {
   };
 
   return (
-    <section className="sm:p-0 px-2 flex flex-col items-center justify-center min-h-screen">
+    <section className="sm:p-0 px-2 flex flex-col items-center justify-center min-h-[80vh]">
       <Card className="sm:w-1/2 w-full p-5 grid gap-4">
         <CardTitle>Login</CardTitle>
         <form onSubmit={handleSubmit} className="grid gap-3">
