@@ -11,17 +11,19 @@ const ListingCard = ({ listing }) => {
 
   return (
     <Card className="relative inview-animate-hide rounded-lg">
-      <CardHeader>
+      <CardHeader className="py-3 px-5">
         <div className="flex justify-between w-full items-center">
           <div className="flex items-center gap-2">
-            <Avatar>
+            <Avatar className="size-7">
               <AvatarImage
                 src={listing.seller.avatar.url}
                 alt={listing.seller.name}
               />
               <AvatarFallback>{listing.seller.name.charAt(0)}</AvatarFallback>
             </Avatar>
-            <span>{listing.seller.name}</span>
+            <span className="font-bold max-w-[13ch] truncate overflow-hidden">
+              {listing.seller.name.toUpperCase()}
+            </span>
           </div>
 
           {timeUntil(listing.endsAt)}
@@ -30,12 +32,6 @@ const ListingCard = ({ listing }) => {
       <CardContent className="flex flex-col justify-between">
         <div className="flex flex-col justify-between gap-2">
           {/* Use main image if available, otherwise fallback to /placeholder.png */}
-          <img
-            src={mainImage?.url || "/placeholder.png"}
-            alt={mainImage?.alt || "Listing image"}
-            className="aspect-square max-h-[15rem] w-full object-cover rounded-lg"
-          />
-          <h2>{listing.title}</h2>
 
           {listing.bids.length > 0 ? (
             <div>
@@ -44,6 +40,14 @@ const ListingCard = ({ listing }) => {
           ) : (
             <p className="text-sm text-muted-foreground">No bids yet</p>
           )}
+          <h2 className="max-w-[28ch] truncate overflow-hidden">
+            {listing.title}
+          </h2>
+          <img
+            src={mainImage?.url || "/placeholder.png"}
+            alt={mainImage?.alt || "Listing image"}
+            className="aspect-[4/3] w-full object-cover rounded-lg bg-muted"
+          />
           <div className="flex gap-2 mt-3">
             {listing.tags.map((tag, idx) => (
               <Badge variant="outline" className="flex" key={idx}>
