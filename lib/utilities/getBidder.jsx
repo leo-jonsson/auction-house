@@ -1,4 +1,3 @@
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { FaCoins } from "react-icons/fa";
 
 const Bidder = ({ array }) => {

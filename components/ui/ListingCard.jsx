@@ -51,11 +51,11 @@ const ListingCard = ({ listing }) => {
               className="aspect-[4/3] w-full object-cover rounded-lg bg-muted"
             />
             <div className="flex gap-2 mt-3">
-              {listing.tags.map((tag, idx) => (
-                <Badge variant="outline" className="flex" key={idx}>
-                  {tag}
-                </Badge>
-              ))}
+              {listing.tags && (
+                <>
+                  <Badge variant="outline">{listing.tags[0]}</Badge>
+                </>
+              )}
             </div>
           </div>
         </CardContent>
