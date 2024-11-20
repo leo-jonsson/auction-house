@@ -83,10 +83,11 @@ export default function AuctionForm({ onSubmit }) {
         />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="description">Description</Label>
+        <Label htmlFor="description">Description (max 280 characters)</Label>
         <Textarea
           id="description"
           type="text"
+          maxLength="280"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Tell us more about the thing you are selling"
@@ -168,7 +169,7 @@ export default function AuctionForm({ onSubmit }) {
             type="text"
             value={tags}
             onChange={(e) => setTags(e.target.value)}
-            placeholder="tag1, tag2, tag3"
+            placeholder="Eletronics, Football, Clothing"
           />
         </div>
       </div>

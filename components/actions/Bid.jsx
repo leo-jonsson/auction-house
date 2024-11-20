@@ -96,7 +96,7 @@ const BidForm = ({ target }) => {
             onChange={handleChange} // Allow manual typing
             onBlur={handleBlur} // Validate and reset on blur
           />
-          <FaCoins className="absolute right-2 top-3" />
+          <FaCoins className="absolute right-3 top-3" />
         </span>
         <Button
           type="button" // Prevent default form submission
@@ -108,7 +108,7 @@ const BidForm = ({ target }) => {
         </Button>
       </div>
 
-      {userCredits !== null && (
+      {userCredits && (
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <Button
@@ -125,7 +125,9 @@ const BidForm = ({ target }) => {
               <AlertDialogTitle>Confirm Your Bid</AlertDialogTitle>
               <AlertDialogDescription>
                 You are about to place a bid of <strong>{currentBid}</strong>{" "}
-                credits. This action cannot be undone.
+                credits. This action cannot be undone. Placing this bid will
+                leave your current wallet <br /> balance at{" "}
+                <strong>{userCredits - currentBid} </strong> credits
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>

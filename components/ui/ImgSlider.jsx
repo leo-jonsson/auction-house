@@ -82,7 +82,7 @@ export default function ImgSlider({ carouselItems }) {
             </CarouselItem>
           ))
         ) : (
-          <p>No media available</p>
+          <img src="/placeholder.png" alt="placeholder image" />
         )}
       </CarouselContent>
 
