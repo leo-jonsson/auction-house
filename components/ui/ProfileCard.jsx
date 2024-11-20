@@ -2,9 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import ProfileAPI from "@/lib/api/profile";
-import ProfileChart from "./ProfileChart";
 import ProfileTable from "./ProfileTable";
-import { Card } from "./card";
 
 const ProfileCard = ({ username }) => {
   const [profile, setProfile] = useState(null);

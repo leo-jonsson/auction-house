@@ -34,6 +34,7 @@ const SingleListingPage = () => {
         <div className="grid md:grid-cols-2 w-full gap-2">
           <Skeleton className="aspect-[4/3] w-full" />
           <Skeleton className="aspect-[4/3] w-full" />
+          <Skeleton className="md:col-span-2 w-full aspect-[4/3]" />
         </div>
       ) : (
         <SingleListing listing={post} />
