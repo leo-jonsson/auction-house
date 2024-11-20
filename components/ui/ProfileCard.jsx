@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import ProfileAPI from "@/lib/api/profile";
 import ProfileChart from "./ProfileChart";
+import ProfileTable from "./ProfileTable";
+import { Card } from "./card";
 
 const ProfileCard = ({ username }) => {
   const [profile, setProfile] = useState(null);
@@ -30,6 +32,8 @@ const ProfileCard = ({ username }) => {
     <div>
       <h1>{profile.name}</h1>
       <p>Credits: {profile.credits}</p>
+
+      <ProfileTable listings={profile.listings} />
     </div>
   );
 };

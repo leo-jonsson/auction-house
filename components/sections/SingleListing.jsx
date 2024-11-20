@@ -15,7 +15,9 @@ const SingleListing = ({ listing }) => {
       <div className="flex flex-col justify-around text-center items-center pt-4 max-w-full overflow-x-hidden">
         <div className="grid gap-3">
           <Link
-            href={`/user/${listing.seller.name}`}
+            href={`${
+              loggedInUser ? `/user/${listing.seller.name}` : "/auth/register"
+            }`}
             className="flex items-center gap-2 mx-auto"
           >
             <span>
@@ -46,12 +48,24 @@ const SingleListing = ({ listing }) => {
               No bids yet
             </p>
           )}
-          {listing.seller.name === loggedInUser.name ? (
-            <Button>
-              Manage <Settings />
-            </Button>
+
+          {loggedInUser ? (
+            // Show BidForm if user is logged in
+            listing.seller.name === loggedInUser?.name ? (
+              <Button>
+                Manage <Settings />
+              </Button>
+            ) : (
+              <BidForm target={listing} />
+            )
           ) : (
-            <BidForm target={listing} />
+            // Show sign-up prompt if no user is logged in
+            <p className="text-center text-base text-foreground">
+              Create an account to bid on this product!{" "}
+              <Link href="/auth/register" className="text-primary">
+                Sign up
+              </Link>
+            </p>
           )}
         </div>
       </div>
