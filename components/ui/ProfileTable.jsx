@@ -12,8 +12,11 @@ import {
 } from "./table";
 import { Switch } from "./switch";
 import { Card } from "./card";
+import { ScrollArea } from "./scroll-area"; // Ensure you have this component
 import Link from "next/link";
 import { FaExternalLinkAlt } from "react-icons/fa";
+import { timeSince } from "@/lib/utilities/date";
+import { Settings } from "lucide-react";
 
 const ProfileTable = ({ listings }) => {
   const [showExpired, setShowExpired] = useState(false);
@@ -34,64 +37,53 @@ const ProfileTable = ({ listings }) => {
   });
 
   return (
-    <div className="max-w-[50rem] mx-auto">
-      {/* Only show the switch if there are expired listings */}
-      {hasExpiredListings && (
-        <div className="flex items-center justify-end mb-4">
-          <label htmlFor="showExpired" className="mr-2 text-sm">
-            Show Expired
-          </label>
-          <Switch
-            id="showExpired"
-            checked={showExpired}
-            onClick={() => setShowExpired(!showExpired)}
-            className="cursor-pointer"
-          />
-        </div>
-      )}
+    <Card className="w-full xl:col-span-2 py-2">
+      <div className="flex w-full items-start justify-between px-2">
+        <p className="text-xl">Your listings</p>
+        {/* Only show the switch if there are expired listings */}
+        {hasExpiredListings && (
+          <div className="flex items-center justify-end mb-4">
+            <label htmlFor="showExpired" className="mr-2 text-sm">
+              Show Expired
+            </label>
+            <Switch
+              id="showExpired"
+              checked={showExpired}
+              onClick={() => setShowExpired(!showExpired)}
+              className="cursor-pointer"
+            />
+          </div>
+        )}
+      </div>
+      <div className="mx-auto pb-3 bg-card">
+        {/* Wrap the table in a ScrollArea for horizontal scrolling */}
+        <ScrollArea className="h-[20rem] w-full">
+          {filteredListings.map((listing, idx) => (
+            <span key={idx}>
+              <div className="flex justify-between items-center w-full border-b p-2">
+                <div className="flex items-center gap-2">
+                  <img
+                    src={listing?.media[0]?.url}
+                    alt=""
+                    className="w-10 h-10 rounded-lg"
+                  />
+                  <h5>{listing.title}</h5>{" "}
+                  {isExpired(listing.endsAt) ? (
+                    <p className="text-destructive">(Expired)</p>
+                  ) : (
+                    <p className="text-primary">(Active)</p>
+                  )}
+                </div>
 
-      <Card className="max-w-full mx-auto pb-3">
-        <Table>
-          <TableCaption>Recent listings.</TableCaption>
-          <TableHeader>
-            <TableRow className="py-0">
-              <TableHead className="max-[500px]:hidden">ID</TableHead>
-              <TableHead>Title</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Link</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredListings.map((listing) => (
-              <TableRow key={listing.id} className="py-0 w-full items-center">
-                <TableCell className="py-0 max-[500px]:hidden">
-                  {listing.id}
-                </TableCell>
-                <TableCell className="py-2">{listing.title}</TableCell>
-                <TableCell
-                  className={`py-0 ${
-                    isExpired(listing.endsAt)
-                      ? "text-destructive"
-                      : "text-primary"
-                  }`}
-                >
-                  {isExpired(listing.endsAt) ? "Expired" : "Active"}
-                </TableCell>
-                <TableCell>
-                  <Link
-                    href={`/listings/${listing.id}`}
-                    className="flex gap-2 items-center hover:text-primary transition-colors"
-                  >
-                    Visit
-                    <FaExternalLinkAlt />
-                  </Link>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Card>
-    </div>
+                <span className="flex items-center gap-2 bg-card border py-1 px-2 rounded-md text-muted-foreground hover:text-foreground transition-colors">
+                  <span className="sm:block hidden">Manage</span> <Settings />
+                </span>
+              </div>
+            </span>
+          ))}
+        </ScrollArea>
+      </div>
+    </Card>
   );
 };
 

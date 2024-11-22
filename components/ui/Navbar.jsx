@@ -185,7 +185,7 @@ const Navbar = () => {
             </span>
             <Link
               href="/auth/login"
-              className="px-4 py-1 bg-primary text-white rounded-xl sm:flex hidden"
+              className="px-4 py-1 bg-primary text-white rounded-full sm:flex hidden"
             >
               Login
             </Link>
@@ -224,7 +224,7 @@ const Navbar = () => {
                   <span className="mr-auto">
                     <Link
                       href="/auth/login"
-                      className="px-4 py-1 bg-primary text-white rounded-xl sm:hidden flex"
+                      className="px-4 py-1 bg-primary text-white rounded-full sm:hidden flex"
                     >
                       Login
                     </Link>

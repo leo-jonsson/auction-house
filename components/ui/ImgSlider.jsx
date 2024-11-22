@@ -76,7 +76,10 @@ export default function ImgSlider({ carouselItems }) {
             <CarouselItem key={index}>
               <Card className={`overflow-hidden border-0 rounded-lg shadow-md`}>
                 <CardContent className="p-0 size-full flex flex-col justify-between">
-                  <img src={item.url} className="aspect-[4/3] object-cover" />
+                  <img
+                    src={item.url}
+                    className="aspect-[3/4] max-h-[40rem] object-cover"
+                  />
                 </CardContent>
               </Card>
             </CarouselItem>

@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import ListingAPI from "@/lib/api/listings";
 import SingleListing from "@/components/sections/SingleListing";
 import { Skeleton } from "@/components/ui/skeleton";
+import IntersectionObserverComponent from "@/components/actions/Observer";
 
 const SingleListingPage = () => {
   const params = useParams();
@@ -29,15 +30,17 @@ const SingleListingPage = () => {
   }, [listingId]);
 
   return (
-    <div className="flex flex-col min-h-[80vh] items-center justify-center">
+    <div className="flex flex-col min-h-[80vh] max-w-[65rem] md:mx-auto">
       {isLoading ? (
-        <div className="grid md:grid-cols-2 w-full gap-2">
-          <Skeleton className="aspect-[4/3] w-full" />
-          <Skeleton className="aspect-[4/3] w-full" />
-          <Skeleton className="md:col-span-2 w-full aspect-[4/3]" />
+        <div className="grid md:grid-cols-2 w-full gap-2 h-full pt-10 px-2">
+          <Skeleton className="aspect-[3/4] w-full" />
+          <Skeleton className="aspect-[3/4] w-full" />
         </div>
       ) : (
-        <SingleListing listing={post} />
+        <>
+          <SingleListing listing={post} />
+          <IntersectionObserverComponent listings={post} />
+        </>
       )}
     </div>
   );

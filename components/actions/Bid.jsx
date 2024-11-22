@@ -78,11 +78,12 @@ const BidForm = ({ target }) => {
 
   return (
     <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-4">
-      <div className="flex items-center gap-2 mx-auto w-full">
+      <div className="flex items-center mx-auto w-full">
         <Button
           type="button" // Prevent default form submission
           variant="outline"
           size="icon"
+          className="custom-radius-1"
           onClick={handleDecrement}
           disabled={currentBid <= initialBid}
         >
@@ -91,6 +92,7 @@ const BidForm = ({ target }) => {
         <span className="relative h-full">
           <Input
             type="text"
+            className="rounded-none"
             placeholder="Make a bid"
             value={currentBid}
             onChange={handleChange} // Allow manual typing
@@ -101,6 +103,7 @@ const BidForm = ({ target }) => {
         <Button
           type="button" // Prevent default form submission
           variant="outline"
+          className="custom-radius-2"
           size="icon"
           onClick={handleIncrement}
         >

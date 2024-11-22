@@ -75,7 +75,7 @@ export function ListChart({ id }) {
   }, [id]);
 
   return (
-    <ChartContainer config={chartConfig} className="md:h-[550px] min-h-[200px]">
+    <ChartContainer config={chartConfig} className="min-h-[200px]">
       <BarChart data={chartData} barCategoryGap="15%">
         <CartesianGrid vertical={false} />
         <XAxis
@@ -83,7 +83,11 @@ export function ListChart({ id }) {
           tickLine={false}
           tickMargin={2}
           axisLine={false}
+          tickFormatter={(value) =>
+            value.length > 4 ? value.slice(0, 3) + "..." : value
+          }
         />
+
         <YAxis
           tickLine={false}
           axisLine={false}

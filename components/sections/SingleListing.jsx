@@ -9,13 +9,17 @@ import { Avatar, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
 import { ListChart } from "../ui/ListChart";
 import { Card, CardHeader, CardTitle } from "../ui/card";
+import { highestBid } from "@/lib/utilities/highestBid";
 
 const SingleListing = ({ listing }) => {
+  const highest = highestBid(listing.bids, true);
   return (
-    <section className="grid gap-5">
-      <div className="grid md:grid-cols-2 px-3 gap-2 py-2">
-        <ImgSlider carouselItems={listing.media} />
-        <div className="flex flex-col justify-around text-center items-center pt-4 max-w-full overflow-x-hidden">
+    <section className="grid gap-5 w-full">
+      <div className="grid md:grid-cols-2 px-3 gap-2 py-2 relative items-center">
+        <div className="grid inview-animate-hide">
+          <ImgSlider carouselItems={listing.media} />
+        </div>
+        <div className="flex flex-col text-center items-center pt-4 w-full overflow-x-hidden inview-animate-hide">
           <div className="grid gap-3">
             <Link
               href={`${
@@ -43,9 +47,11 @@ const SingleListing = ({ listing }) => {
               ))}
             </div>
           </div>
-          <div className="grid gap-2 mx-auto items-center pt-10">
+          <div className="flex flex-col justify-center items-center gap-2 pt-5">
             {listing.bids.length > 0 ? (
-              <Bidder array={listing.bids} />
+              <span className="text-muted-foreground text-sm">
+                {highest.bidder} has offered {highest.amount} credits
+              </span>
             ) : (
               <p className="text-center text-sm text-muted-foreground">
                 No bids yet
@@ -70,17 +76,17 @@ const SingleListing = ({ listing }) => {
                 </Link>
               </p>
             )}
+            {loggedInUser && listing.bids.length > 1 ? (
+              <Card className="">
+                <CardHeader>
+                  <CardTitle>Analyze your bidding opponents</CardTitle>
+                </CardHeader>
+                <ListChart id={listing.id} />
+              </Card>
+            ) : null}
           </div>
         </div>
       </div>
-      {loggedInUser && listing.bids.length > 1 ? (
-        <Card className="mx-auto">
-          <CardHeader>
-            <CardTitle>Analyze your bidding opponents</CardTitle>
-          </CardHeader>
-          <ListChart id={listing.id} />
-        </Card>
-      ) : null}
     </section>
   );
 };

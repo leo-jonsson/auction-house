@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import ProfileCard from "../ui/ProfileCard";
+import ProfilePage from "../ui/ProfileCard";
 
 const UserPage = () => {
   const params = useParams();
@@ -10,7 +10,7 @@ const UserPage = () => {
 
   return (
     <section>
-      <ProfileCard username={userID} />
+      <ProfilePage username={userID} />
     </section>
   );
 };
