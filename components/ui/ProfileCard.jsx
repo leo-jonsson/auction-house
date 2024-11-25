@@ -5,13 +5,17 @@ import ProfileAPI from "@/lib/api/profile";
 import DotPattern from "./dot-pattern";
 import ProfileTable from "./ProfileTable";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./card";
-import { Avatar, AvatarImage } from "./avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { FaCoins, FaList, FaTrophy } from "react-icons/fa";
 import GoalPieChart from "./PieChart";
 import { MockChart } from "./MockChart";
 import HotUsers from "./HotUsers";
 import { Skeleton } from "./skeleton";
 import { Loader } from "lucide-react";
+import { loggedInUser } from "@/lib/utilities/getUser";
+import ListingCard from "./ListingCard";
+import Link from "next/link";
+import { timeUntil } from "@/lib/utilities/date";
 
 const ProfilePage = ({ username }) => {
   const [profile, setProfile] = useState(null);
@@ -39,6 +43,63 @@ const ProfilePage = ({ username }) => {
         <Skeleton className="w-full h-full flex justify-center items-center">
           <Loader className="animate-spin size-32" />
         </Skeleton>
+      </div>
+    );
+
+  if (profile.name !== loggedInUser.name)
+    return (
+      <div className="flex flex-col w-full items-center gap-5 py-4">
+        <Card className="max-w-[30rem] w-full relative overflow-hidden pt-0">
+          <CardHeader className="relative p-0 overflow-hidden">
+            <img
+              src={profile.banner.url}
+              className="aspect-[4/3] h-[14rem] object-cover"
+            />
+            <Avatar className="size-24 z-10 border-2  absolute top-1/2 -translate-y-1/2 left-5">
+              <AvatarImage
+                src={profile?.avatar.url}
+                alt={profile?.avatar.alt}
+              />
+            </Avatar>
+          </CardHeader>
+          <CardContent className="pt-5">
+            <div className="grid gap-5">
+              <div className="grid">
+                <h1 className="text-xl font-bold">{profile.name}</h1>
+                <h2 className="text-muted-foreground">{profile.email}</h2>
+              </div>
+              {profile.bio ? <p>{profile.bio}</p> : <p>No bio</p>}
+            </div>
+          </CardContent>
+          <CardFooter className="flex gap-3">
+            <li className="list-none flex items-center gap-2 bg-muted py-1 px-2 rounded-md">
+              {profile._count.wins} <FaTrophy />
+            </li>
+            <li className="list-none flex items-center gap-2 bg-muted py-1 px-2 rounded-md">
+              {profile._count.listings} <FaList />
+            </li>
+            <li className="list-none flex items-center gap-2 bg-muted py-1 px-2 rounded-md">
+              {profile.credits} <FaCoins />
+            </li>
+          </CardFooter>
+        </Card>
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 w-ful px-3 lg:px-0">
+          {profile._count.listings > 0 ? (
+            profile.listings.map((listing, idx) => (
+              <Link href={`/listings/${listing.id}`} key={idx}>
+                <Card className="overflow-hidden">
+                  <img
+                    src={listing.media[0].url}
+                    alt=""
+                    className="aspect-[3/4] object-cover w-full h-full"
+                  />
+                </Card>
+              </Link>
+            ))
+          ) : (
+            <span>No world</span>
+          )}
+        </div>
       </div>
     );
 

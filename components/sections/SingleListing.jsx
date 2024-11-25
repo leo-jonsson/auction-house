@@ -77,7 +77,7 @@ const SingleListing = ({ listing }) => {
               </p>
             )}
             {loggedInUser && listing.bids.length > 1 ? (
-              <Card className="">
+              <Card className="border-none">
                 <CardHeader>
                   <CardTitle>Analyze your bidding opponents</CardTitle>
                 </CardHeader>

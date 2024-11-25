@@ -9,7 +9,7 @@ import IntersectionObserverComponent from "../actions/Observer";
 const Listings = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [listings, setListings] = useState([]);
-  const [limit] = useState(20);
+  const [limit] = useState(21);
   const [totalPages, setTotalPages] = useState(1);
   const [page, setPage] = useState(1);
   const headingRef = useRef(null);

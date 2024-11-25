@@ -3,6 +3,8 @@ import { Card, CardContent, CardFooter, CardHeader } from "./card";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { timeUntil } from "@/lib/utilities/date.jsx";
 import Link from "next/link";
+import { FaCoins } from "react-icons/fa";
+import { highestBid } from "@/lib/utilities/highestBid";
 
 const ListingCard = ({ listing }) => {
   // Extract the first image from the listing.media array if it exists
@@ -33,11 +35,8 @@ const ListingCard = ({ listing }) => {
             className="w-full object-cover bg-muted h-full absolute inset-0"
           />
         </CardHeader>
-        {/* <CardContent className="flex justify-between gap-1 p-2 pt-2 bg-background w-full absolute bottom-0">
-          <h2 className="max-w-[28ch] truncate overflow-hidden">
-            {listing.title}
-          </h2>
-          <div>
+        <CardContent className="flex justify-end w-full gap-1 p-2 pt-2 absolute bottom-0">
+          <div className="bg-black/50 backdrop-blur-sm text-white rounded-lg p-1 flex justify-center items-center">
             {listing.bids.length > 0 ? (
               <span className="flex items-center gap-2">
                 {highestBid(listing.bids)} <FaCoins />
@@ -48,7 +47,7 @@ const ListingCard = ({ listing }) => {
               </span>
             )}
           </div>
-        </CardContent> */}
+        </CardContent>
       </Card>
     </Link>
   );

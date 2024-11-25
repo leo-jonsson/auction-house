@@ -58,29 +58,30 @@ const ProfileTable = ({ listings }) => {
       <div className="mx-auto pb-3 bg-card">
         {/* Wrap the table in a ScrollArea for horizontal scrolling */}
         <ScrollArea className="h-[20rem] w-full">
-          {filteredListings.map((listing, idx) => (
-            <span key={idx}>
-              <div className="flex justify-between items-center w-full border-b p-2">
-                <div className="flex items-center gap-2">
-                  <img
-                    src={listing?.media[0]?.url}
-                    alt=""
-                    className="w-10 h-10 rounded-lg"
-                  />
-                  <h5>{listing.title}</h5>{" "}
-                  {isExpired(listing.endsAt) ? (
-                    <p className="text-destructive">(Expired)</p>
-                  ) : (
-                    <p className="text-primary">(Active)</p>
-                  )}
-                </div>
+          {filteredListings &&
+            filteredListings.map((listing, idx) => (
+              <span key={idx}>
+                <div className="flex justify-between items-center w-full border-b p-2">
+                  <div className="flex items-center gap-2">
+                    <img
+                      src={listing?.media[0]?.url}
+                      alt=""
+                      className="w-10 h-10 rounded-lg"
+                    />
+                    <h5>{listing.title}</h5>{" "}
+                    {isExpired(listing.endsAt) ? (
+                      <p className="text-destructive">(Expired)</p>
+                    ) : (
+                      <p className="text-primary">(Active)</p>
+                    )}
+                  </div>
 
-                <span className="flex items-center gap-2 bg-card border py-1 px-2 rounded-md text-muted-foreground hover:text-foreground transition-colors">
-                  <span className="sm:block hidden">Manage</span> <Settings />
-                </span>
-              </div>
-            </span>
-          ))}
+                  <span className="flex items-center gap-2 bg-card border py-1 px-2 rounded-md text-muted-foreground hover:text-foreground transition-colors">
+                    <span className="sm:block hidden">Manage</span> <Settings />
+                  </span>
+                </div>
+              </span>
+            ))}
         </ScrollArea>
       </div>
     </Card>

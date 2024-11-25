@@ -27,6 +27,7 @@ import ModeToggle from "../theme/ModeToggle";
 import SignOutBtn from "../actions/SignOutBtn";
 import { Skeleton } from "./skeleton";
 import { Button } from "./button";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const api = new ProfileAPI();
@@ -52,23 +53,34 @@ const Navbar = () => {
 
   return (
     <nav className="w-full top-0 border-b shadow-sm sm:shadow-none bg-background/70 backdrop-blur-md sticky flex items-center justify-between p-2 z-[50]">
-      <div className="flex justify-between max-w-[60rem] w-full mx-auto">
+      <div className="flex justify-between max-w-[78rem] w-full mx-auto">
         <span className="flex items-center gap-1">
           <Logo />
           <span className="font-bold">AUCSOME</span>
         </span>
 
         <div className="flex items-center gap-5">
-          <ul className="flex gap-5 text-muted-foreground">
-            <li className="sm:flex hidden">
-              <Link href="/">Home</Link>
-            </li>
-            <li className="sm:flex hidden">
-              <Link href="/listings">Listings</Link>
-            </li>
-            <li className="sm:flex hidden">
-              <Link href="/contact">Contact</Link>
-            </li>
+          <ul className="flex gap-5 ml-5 text-muted-foreground">
+            {[
+              { name: "Home", href: "/", ref: "/" },
+              { name: "Listings", href: "/listings", ref: "/listings" },
+            ].map((link) => {
+              const isActive = usePathname() === link.ref;
+              return (
+                <li key={link.name} className="sm:flex hidden">
+                  <Link
+                    href={link.href}
+                    className={`transition-colors ${
+                      isActive
+                        ? "text-foreground font-bold"
+                        : "hover:text-foreground"
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
           {isLoading ? (
             <Skeleton className="w-9 aspect-square rounded-full" />
