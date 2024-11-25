@@ -42,7 +42,7 @@ const HotUsers = () => {
               href={`/user/${user.name}`}
               key={idx}
               className={`${
-                idx > 10 ? "xl:flexhidden" : "flex"
+                idx > 10 ? "xl:flex hidden" : "flex"
               } border py-1 px-2 w-full flex flex-col items-center gap-2 rounded-lg hover:bg-muted transition-colors`}
             >
               <Avatar className="size-7">

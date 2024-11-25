@@ -139,8 +139,8 @@ export default function AuctionForm({ onSubmit }) {
           </Button>
         </div>
       </div>
-      <div className="flex items-center gap-2">
-        <div className="grid gap-2 basis-1/3">
+      <div className="flex items-center flex-col sm:flex-row gap-2">
+        <div className="grid gap-2 sm:basis-1/3 w-full">
           <Label>Ends At</Label>
           <Popover>
             <PopoverTrigger asChild>
@@ -162,7 +162,7 @@ export default function AuctionForm({ onSubmit }) {
             </PopoverContent>
           </Popover>
         </div>
-        <div className="grid gap-2 basis-2/3">
+        <div className="grid gap-2 sm:basis-2/3 w-full">
           <Label htmlFor="tags">Tags (comma-separated)</Label>
           <Input
             id="tags"

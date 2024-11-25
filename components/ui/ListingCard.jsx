@@ -2,11 +2,7 @@ import React from "react";
 import { Card, CardContent, CardFooter, CardHeader } from "./card";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { timeUntil } from "@/lib/utilities/date.jsx";
-import Bidder from "@/lib/utilities/getBidder";
-import { Badge } from "./badge";
 import Link from "next/link";
-import { highestBid } from "@/lib/utilities/highestBid";
-import { FaCoins } from "react-icons/fa";
 
 const ListingCard = ({ listing }) => {
   // Extract the first image from the listing.media array if it exists
@@ -15,7 +11,7 @@ const ListingCard = ({ listing }) => {
   return (
     <Link href={`/listings/${listing.id}`}>
       <Card className="relative inview-animate-hide rounded-lg h-full overflow-hidden aspect-[3/4]">
-        <div className="absolute top-0 left-0 w-full flex items-center px-2 py-1 justify-between gap-2 z-20 bg-background/50 backdrop-blur-sm">
+        <div className="absolute top-0 left-0 w-full flex items-center px-2 py-1 justify-between gap-2 z-20 bg-black/50 text-white backdrop-blur-sm">
           <div className="flex items-center gap-2">
             <Avatar className="size-7">
               <AvatarImage
@@ -28,7 +24,7 @@ const ListingCard = ({ listing }) => {
               {listing.seller.name.toUpperCase()}
             </span>
           </div>
-          <span>{timeUntil(listing.endsAt)}</span>
+          <span className="text-foreground">{timeUntil(listing.endsAt)}</span>
         </div>
         <CardHeader className="p-0">
           <img
