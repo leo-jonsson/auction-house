@@ -19,6 +19,7 @@ import { FaCoins } from "react-icons/fa";
 import ProfileAPI from "@/lib/api/profile";
 import ListingsAPI from "@/lib/api/listings";
 import { loggedInUser } from "@/lib/utilities/getUser";
+import { toast } from "sonner";
 
 const BidForm = ({ target }) => {
   const [currentBid, setCurrentBid] = useState(highestBid(target?.bids || []));
@@ -69,10 +70,13 @@ const BidForm = ({ target }) => {
     try {
       const listingAPI = new ListingsAPI();
       await listingAPI.listings.bid(target.id, currentBid);
-      alert("Bid placed successfully!");
     } catch (error) {
       console.error("Error placing bid:", error);
-      alert("Failed to place bid.", currentBid);
+      alert("Failed to place bid.");
+    } finally {
+      toast("Bid has been placed", {
+        description: `You've made an offer of ${currentBid} credits.`,
+      });
     }
   };
 

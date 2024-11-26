@@ -29,7 +29,7 @@ const Listings = () => {
   };
 
   return (
-    <section className="grid gap-3 mt-3">
+    <section className="grid gap-5 mt-10">
       <h1 className="text-5xl px-3 text-center" ref={headingRef}>
         Listings
       </h1>

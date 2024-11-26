@@ -24,15 +24,15 @@ import ListingAPI from "@/lib/api/listings";
 const chartConfig = {
   credits: {
     label: "Credits",
-    color: "#1e40af", // Lila
+    color: "#1e40af",
   },
   amount: {
     label: "Bid Amount",
-    color: "#0ea5e9", // Grön
+    color: "#0ea5e9",
   },
   wins: {
     label: "Wins",
-    color: "#d946ef", // Orange
+    color: "#d946ef",
   },
 };
 

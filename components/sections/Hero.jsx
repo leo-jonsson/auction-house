@@ -22,7 +22,8 @@ const Hero = () => {
             <Link href="/listings">
               <ShimmerButton>
                 <span className="text-white flex gap-2 items-center">
-                  Explore <ArrowRight className="size-5" />
+                  Explore{" "}
+                  <ArrowRight className="size-5 group-hover:translate-x-0.5 transition-all" />
                 </span>
               </ShimmerButton>
             </Link>

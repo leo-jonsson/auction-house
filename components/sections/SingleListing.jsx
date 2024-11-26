@@ -1,20 +1,27 @@
 import ImgSlider from "../ui/ImgSlider";
-import Bidder from "@/lib/utilities/getBidder";
 import { Badge } from "../ui/badge";
 import BidForm from "../actions/Bid";
 import { loggedInUser } from "@/lib/utilities/getUser";
 import { Button } from "../ui/button";
-import { Settings } from "lucide-react";
+import { ArrowRightIcon, Settings } from "lucide-react";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
 import { ListChart } from "../ui/ListChart";
-import { Card, CardHeader, CardTitle } from "../ui/card";
 import { highestBid } from "@/lib/utilities/highestBid";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
+import AnimatedShinyText from "../ui/animated-shiny-text";
 
 const SingleListing = ({ listing }) => {
   const highest = highestBid(listing.bids, true);
   return (
-    <section className="grid gap-5 w-full">
+    <section className="grid gap-5 w-full h-full">
       <div className="grid md:grid-cols-2 px-3 gap-2 py-2 relative items-center">
         <div className="grid inview-animate-hide">
           <ImgSlider carouselItems={listing.media} />
@@ -77,12 +84,25 @@ const SingleListing = ({ listing }) => {
               </p>
             )}
             {loggedInUser && listing.bids.length > 1 ? (
-              <Card className="border-none">
-                <CardHeader>
-                  <CardTitle>Analyze your bidding opponents</CardTitle>
-                </CardHeader>
-                <ListChart id={listing.id} />
-              </Card>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="w-full">
+                    <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
+                      <span>✨ Use our bidding tool</span>
+                      <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+                    </AnimatedShinyText>
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Analyze your bidding opponents</DialogTitle>
+                    <DialogDescription>
+                      Chart showing bidding history of {listing.title}
+                    </DialogDescription>
+                  </DialogHeader>
+                  <ListChart id={listing.id} />
+                </DialogContent>
+              </Dialog>
             ) : null}
           </div>
         </div>

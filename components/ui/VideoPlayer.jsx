@@ -15,7 +15,7 @@ const VideoPlayer = () => {
         autoPlay
         loop
         muted
-        className="mx-auto w-full p-1 rounded-md"
+        className="mx-auto w-full"
       >
         <source src="/test.mp4" type="video/mp4" />
         <track

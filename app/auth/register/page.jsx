@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { register } from "@/lib/api/auth/register";
 import { Card, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
@@ -36,7 +37,7 @@ const RegisterForm = () => {
 
   return (
     <section className="sm:p-0 px-2 flex flex-col items-center justify-center min-h-[80vh]">
-      <Card className="sm:w-1/3 w-full p-5 grid gap-4">
+      <Card className="max-w-[25rem] w-full p-5 grid gap-4">
         <CardTitle>Register an account</CardTitle>
         <form onSubmit={handleSubmit} className="grid gap-3">
           <Label htmlFor="name">Username</Label>
@@ -76,6 +77,12 @@ const RegisterForm = () => {
             placeholder="Enter your password"
           />
           <Button type="submit">Register</Button>
+          <span className="text-muted-foreground">
+            Already have an account?{" "}
+            <Link className="text-primary" href="/auth/login">
+              Login
+            </Link>{" "}
+          </span>
         </form>
       </Card>
     </section>

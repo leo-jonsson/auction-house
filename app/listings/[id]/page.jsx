@@ -30,9 +30,9 @@ const SingleListingPage = () => {
   }, [listingId]);
 
   return (
-    <div className="flex flex-col min-h-[80vh] max-w-[65rem] md:mx-auto">
+    <div className="flex flex-col min-h-[90vh] max-w-[65rem] md:mx-auto">
       {isLoading ? (
-        <div className="grid md:grid-cols-2 w-full gap-2 h-full pt-10 px-2">
+        <div className="grid md:grid-cols-2 w-full justify-center gap-2 h-full pt-16 px-2">
           <Skeleton className="aspect-[3/4] w-full" />
           <Skeleton className="aspect-[3/4] w-full" />
         </div>

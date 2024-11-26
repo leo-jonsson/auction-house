@@ -8,9 +8,9 @@ const PostListing = () => {
     try {
       console.log("submitting data: ", data);
       const response = await new ListingAPI().listings.create(data);
-      console.log("Listing created successfully:", response);
-      console.log("here is the id:", response.data.id);
-      // Optionally redirect or show a success message
+      setTimeout(() => {
+        window.location.href = `/listings/${response.data.id}`;
+      }, 300);
     } catch (error) {
       console.error("Failed to create listing:", error);
       // Optionally show an error message

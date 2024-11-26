@@ -6,6 +6,7 @@ import { Card, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { login } from "@/lib/api/auth/login";
+import Link from "next/link";
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi"; // Import eye icons for show/hide password
 
@@ -13,6 +14,7 @@ const LoginForm = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -26,20 +28,23 @@ const LoginForm = () => {
 
     try {
       setIsLoading(true);
+      setIsError(false); // Reset error state before attempting login
+
       const response = await login(formData); // Call the login function
       console.log("Login successful:", response);
-      location.href = "/";
+
+      location.href = "/"; // Redirect on success
     } catch (error) {
       console.error("Login failed:", error);
-      alert(error.message || "Login failed, please try again.");
+      setIsError(true); // Show an error message to the user
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Stop loading spinner
     }
   };
 
   return (
     <section className="sm:p-0 px-2 flex flex-col items-center justify-center min-h-[80vh]">
-      <Card className="sm:w-1/3 w-full p-5 grid gap-4">
+      <Card className="max-w-[25rem]  w-full p-5 grid gap-4">
         <CardTitle>Login</CardTitle>
         <form onSubmit={handleSubmit} className="grid gap-3">
           <Label htmlFor="email">Your email address</Label>
@@ -80,6 +85,17 @@ const LoginForm = () => {
           ) : (
             <Button type="submit">Login</Button>
           )}
+          {isError && (
+            <span className="text-destructive">
+              Incorrect email or password
+            </span>
+          )}
+          <span className="text-muted-foreground">
+            Don't have an account?{" "}
+            <Link className="text-primary" href="/auth/register">
+              Sign up
+            </Link>{" "}
+          </span>
         </form>
       </Card>
     </section>
