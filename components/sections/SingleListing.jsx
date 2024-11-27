@@ -74,7 +74,10 @@ const SingleListing = ({ listing }) => {
             {loggedInUser && listing.bids.length > 1 ? (
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button variant="outline" className="w-full mx-auto">
+                  <Button
+                    variant="outline"
+                    className="sm:w-1/2 w-full mx-auto mt-1"
+                  >
                     <AnimatedShinyText className="flex items-center justify-center transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
                       <span>✨ Use our bidding tool</span>
                       <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />

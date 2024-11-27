@@ -22,7 +22,7 @@ import { loggedInUser } from "@/lib/utilities/getUser";
 import { toast } from "sonner";
 
 const BidForm = ({ target }) => {
-  const [currentBid, setCurrentBid] = useState(highestBid(target?.bids || []));
+  const [currentBid, setCurrentBid] = useState(highestBid(target?.bids) + 1);
   const [userCredits, setUserCredits] = useState(null);
   const [mockBid, setMockBid] = useState("");
   const [hasBidded, setHasBidded] = useState(false);
@@ -65,7 +65,7 @@ const BidForm = ({ target }) => {
   const handleBlur = () => {
     // Reset to initial bid if input is invalid
     if (currentBid === "" || currentBid < initialBid) {
-      setCurrentBid(initialBid);
+      setCurrentBid(initialBid + 1);
     }
   };
 
@@ -86,7 +86,7 @@ const BidForm = ({ target }) => {
   };
 
   return (
-    <div className="w-full mx-auto">
+    <div className="w-full mx-auto grid gap-2">
       {!hasBidded ? (
         target.bids.length > 0 ? (
           highest.bidder === loggedInUser?.name ? (
@@ -112,23 +112,23 @@ const BidForm = ({ target }) => {
       )}
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="flex flex-col items-center justify-center gap-4"
+        className="flex flex-col items-center justify-center gap-3 mt-5"
       >
-        <div className="flex items-center justify-center mx-auto w-full">
+        <div className="flex items-center justify-center sm:w-1/2 w-full">
           <Button
             type="button" // Prevent default form submission
             variant="outline"
             size="icon"
             className="custom-radius-1"
             onClick={handleDecrement}
-            disabled={currentBid <= initialBid}
+            disabled={currentBid <= initialBid + 1}
           >
             -
           </Button>
-          <span className="relative h-full">
+          <span className="relative h-full w-full">
             <Input
               type="text"
-              className="rounded-none"
+              className="rounded-none w-full"
               placeholder="Make a bid"
               value={currentBid}
               onChange={handleChange} // Allow manual typing
@@ -153,8 +153,10 @@ const BidForm = ({ target }) => {
               <Button
                 type="submit"
                 variant={userCredits < currentBid ? "destructive" : "default"}
-                disabled={userCredits < currentBid}
-                className="w-full"
+                disabled={
+                  userCredits < currentBid || currentBid < initialBid + 1
+                }
+                className="sm:w-1/2 w-full"
               >
                 {userCredits < currentBid ? "Insufficient funds" : "Place Bid"}
               </Button>
