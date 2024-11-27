@@ -11,11 +11,14 @@ import GoalPieChart from "./PieChart";
 import { MockChart } from "./MockChart";
 import HotUsers from "./HotUsers";
 import { Skeleton } from "./skeleton";
-import { Loader } from "lucide-react";
+import { Loader, Settings } from "lucide-react";
 import { loggedInUser } from "@/lib/utilities/getUser";
 import ListingCard from "./ListingCard";
 import Link from "next/link";
 import { timeUntil } from "@/lib/utilities/date";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./dialog";
+import { Button } from "./button";
+import UpdateProfile from "../actions/UpdateProfile";
 
 const ProfilePage = ({ username }) => {
   const [profile, setProfile] = useState(null);
@@ -111,7 +114,23 @@ const ProfilePage = ({ username }) => {
       </h1>
       <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-3">
         <Card>
-          <CardHeader className="flex items-center">
+          <CardHeader className="flex items-center relative">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  className="absolute right-0 top-0"
+                  variant="ghost"
+                  size="icon"
+                >
+                  <Settings />
+                  <span className="sr-only">Edit your profile</span>
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogTitle>Edit your profile</DialogTitle>
+                <UpdateProfile data={profile} />
+              </DialogContent>
+            </Dialog>
             <Avatar className="size-1/2">
               <AvatarImage
                 src={profile?.avatar.url}
