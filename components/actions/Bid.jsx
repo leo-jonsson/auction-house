@@ -24,7 +24,10 @@ import { toast } from "sonner";
 const BidForm = ({ target }) => {
   const [currentBid, setCurrentBid] = useState(highestBid(target?.bids || []));
   const [userCredits, setUserCredits] = useState(null);
+  const [mockBid, setMockBid] = useState("");
+  const [hasBidded, setHasBidded] = useState(false);
   const initialBid = highestBid(target?.bids);
+  const highest = highestBid(target.bids, true);
   const api = new ProfileAPI();
   const loggedInUserName = loggedInUser?.name;
 
@@ -77,76 +80,106 @@ const BidForm = ({ target }) => {
       toast("Bid has been placed", {
         description: `You've made an offer of ${currentBid} credits.`,
       });
+      setMockBid(currentBid);
+      setHasBidded(true);
     }
   };
 
   return (
-    <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-4">
-      <div className="flex items-center mx-auto w-full">
-        <Button
-          type="button" // Prevent default form submission
-          variant="outline"
-          size="icon"
-          className="custom-radius-1"
-          onClick={handleDecrement}
-          disabled={currentBid <= initialBid}
-        >
-          -
-        </Button>
-        <span className="relative h-full">
-          <Input
-            type="text"
-            className="rounded-none"
-            placeholder="Make a bid"
-            value={currentBid}
-            onChange={handleChange} // Allow manual typing
-            onBlur={handleBlur} // Validate and reset on blur
-          />
-          <FaCoins className="absolute right-3 top-3" />
+    <div className="w-full mx-auto">
+      {!hasBidded ? (
+        target.bids.length > 0 ? (
+          highest.bidder === loggedInUser?.name ? (
+            <span className="text-muted-foreground text-sm">
+              You are leading this auction with a bid of {highest.amount}{" "}
+              credits
+            </span>
+          ) : (
+            <span className="text-muted-foreground text-sm">
+              {highest.bidder} has placed the highest bid of {highest.amount}{" "}
+              credits.
+            </span>
+          )
+        ) : (
+          <p className="text-center text-sm text-muted-foreground">
+            No bids yet
+          </p>
+        )
+      ) : (
+        <span className="text-primary text-sm text-center w-full">
+          You just took the lead with {currentBid} credits!
         </span>
-        <Button
-          type="button" // Prevent default form submission
-          variant="outline"
-          className="custom-radius-2"
-          size="icon"
-          onClick={handleIncrement}
-        >
-          +
-        </Button>
-      </div>
-
-      {userCredits && (
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button
-              type="submit"
-              variant={userCredits < currentBid ? "destructive" : "default"}
-              disabled={userCredits < currentBid}
-              className="mx-auto w-full"
-            >
-              {userCredits < currentBid ? "Insufficient funds" : "Place Bid"}
-            </Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Confirm Your Bid</AlertDialogTitle>
-              <AlertDialogDescription>
-                You are about to place a bid of <strong>{currentBid}</strong>{" "}
-                credits. This action cannot be undone. Placing this bid will
-                leave your current wallet <br /> balance at{" "}
-                <strong>{userCredits - currentBid} </strong> credits
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={handleConfirmBid}>
-                Confirm Bid
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
       )}
-    </form>
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="flex flex-col items-center justify-center gap-4"
+      >
+        <div className="flex items-center justify-center mx-auto w-full">
+          <Button
+            type="button" // Prevent default form submission
+            variant="outline"
+            size="icon"
+            className="custom-radius-1"
+            onClick={handleDecrement}
+            disabled={currentBid <= initialBid}
+          >
+            -
+          </Button>
+          <span className="relative h-full">
+            <Input
+              type="text"
+              className="rounded-none"
+              placeholder="Make a bid"
+              value={currentBid}
+              onChange={handleChange} // Allow manual typing
+              onBlur={handleBlur} // Validate and reset on blur
+            />
+            <FaCoins className="absolute right-3 top-3" />
+          </span>
+          <Button
+            type="button" // Prevent default form submission
+            variant="outline"
+            className="custom-radius-2"
+            size="icon"
+            onClick={handleIncrement}
+          >
+            +
+          </Button>
+        </div>
+
+        {userCredits && (
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                type="submit"
+                variant={userCredits < currentBid ? "destructive" : "default"}
+                disabled={userCredits < currentBid}
+                className="w-full"
+              >
+                {userCredits < currentBid ? "Insufficient funds" : "Place Bid"}
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Confirm Your Bid</AlertDialogTitle>
+                <AlertDialogDescription>
+                  You are about to place a bid of <strong>{currentBid}</strong>{" "}
+                  credits. This action cannot be undone. Placing this bid will
+                  leave your current wallet <br /> balance at{" "}
+                  <strong>{userCredits - currentBid} </strong> credits
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={handleConfirmBid}>
+                  Confirm Bid
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        )}
+      </form>
+    </div>
   );
 };
 

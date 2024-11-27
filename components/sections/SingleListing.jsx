@@ -7,7 +7,6 @@ import { ArrowRightIcon, Settings } from "lucide-react";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
 import { ListChart } from "../ui/ListChart";
-import { highestBid } from "@/lib/utilities/highestBid";
 import {
   Dialog,
   DialogContent,
@@ -19,7 +18,6 @@ import {
 import AnimatedShinyText from "../ui/animated-shiny-text";
 
 const SingleListing = ({ listing }) => {
-  const highest = highestBid(listing.bids, true);
   return (
     <section className="grid gap-5 w-full h-full">
       <div className="grid md:grid-cols-2 px-3 gap-2 py-2 relative items-center">
@@ -54,17 +52,7 @@ const SingleListing = ({ listing }) => {
               ))}
             </div>
           </div>
-          <div className="flex flex-col justify-center items-center gap-2 pt-5">
-            {listing.bids.length > 0 ? (
-              <span className="text-muted-foreground text-sm">
-                {highest.bidder} has offered {highest.amount} credits
-              </span>
-            ) : (
-              <p className="text-center text-sm text-muted-foreground">
-                No bids yet
-              </p>
-            )}
-
+          <div className="flex flex-col justify-center items-center gap-2 pt-5 w-full mx-auto">
             {loggedInUser ? (
               // Show BidForm if user is logged in
               listing.seller.name === loggedInUser?.name ? (
@@ -86,8 +74,8 @@ const SingleListing = ({ listing }) => {
             {loggedInUser && listing.bids.length > 1 ? (
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button variant="outline" className="w-full">
-                    <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
+                  <Button variant="outline" className="w-full mx-auto">
+                    <AnimatedShinyText className="flex items-center justify-center transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
                       <span>✨ Use our bidding tool</span>
                       <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
                     </AnimatedShinyText>
