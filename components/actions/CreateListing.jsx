@@ -8,6 +8,16 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Textarea } from "../ui/textarea";
 import LoadingButton from "../ui/LoadingButton";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
+import ImgSlider from "../ui/ImgSlider";
+import { Badge } from "../ui/badge";
 
 export default function AuctionForm({ onSubmit }) {
   const [title, setTitle] = useState("");
@@ -51,7 +61,9 @@ export default function AuctionForm({ onSubmit }) {
     }
     setLoading(true); // Set loading state to true on submit
 
-    const tagsArray = tags ? tags.split(",").map((tag) => tag.trim()) : [];
+    const tagsArray = tags
+      ? tags.split("," && " ").map((tag) => tag.trim())
+      : [];
     const formData = {
       title,
       description,
@@ -70,7 +82,7 @@ export default function AuctionForm({ onSubmit }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 sm:px-0 px-2 w-full">
+    <form onSubmit={handleSubmit} className="space-y-4 sm:px-0 w-full">
       <div className="grid gap-2">
         <Label htmlFor="title">Title</Label>
         <Input
@@ -146,7 +158,9 @@ export default function AuctionForm({ onSubmit }) {
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
-                className="w-full flex text-start items-center justify-between"
+                className={`w-full flex text-start items-center justify-between ${
+                  !endsAt ? "text-muted-foreground" : "text-foreground"
+                }`}
               >
                 {endsAt ? format(endsAt, "PPP") : "Select a date"}
                 <CalendarIcon />
@@ -157,13 +171,15 @@ export default function AuctionForm({ onSubmit }) {
                 mode="single"
                 selected={endsAt}
                 onSelect={setEndsAt}
-                fromDate={new Date()} // Prevent past dates
+                fromDate={
+                  new Date(new Date().setDate(new Date().getDate() + 1))
+                } // Minimum date is tomorrow (prevent past date)
               />
             </PopoverContent>
           </Popover>
         </div>
         <div className="grid gap-2 sm:basis-2/3 w-full">
-          <Label htmlFor="tags">Tags (comma-separated)</Label>
+          <Label htmlFor="tags">Tags (comma or space-separated)</Label>
           <Input
             id="tags"
             type="text"
@@ -175,11 +191,50 @@ export default function AuctionForm({ onSubmit }) {
       </div>
       {error && <p className="text-destructive">{error}</p>}
       {loading ? (
-        <LoadingButton message={"Posting"} />
+        <span className="flex gap-2">
+          <div className="basis-2/3">
+            <LoadingButton message={"Posting"} />
+          </div>
+          <Button variant="outline" className="w-full basis-1/3" disabled>
+            Preview post
+          </Button>
+        </span>
       ) : (
-        <Button type="submit" className="w-full">
-          Create listing{" "}
-        </Button>
+        <div className="flex gap-2">
+          <Button type="submit" className="w-full basis-2/3">
+            Create listing
+          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button
+                variant="outline"
+                className="w-full basis-1/3"
+                disabled={title === ""}
+              >
+                Preview post
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>{title}</DialogTitle>
+              </DialogHeader>
+              {media[0]?.url && <ImgSlider carouselItems={media} />}
+              <div className="flex flex-col gap-3">
+                <span className="text-muted-foreground text-sm">
+                  {description}
+                </span>
+                <span className="flex flex-wrap gap-2">
+                  {tags
+                    .split(/[\s,]+/)
+                    .filter((tag) => tag)
+                    .map((tag, idx) => (
+                      <Badge key={idx}>{tag}</Badge>
+                    ))}
+                </span>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </div>
       )}
     </form>
   );

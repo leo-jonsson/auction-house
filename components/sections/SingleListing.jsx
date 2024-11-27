@@ -44,7 +44,7 @@ const SingleListing = ({ listing }) => {
             <h2 className="text-muted-foreground sm:px-12">
               {listing.description}
             </h2>
-            <div className="flex gap-3 items-center mx-auto">
+            <div className="flex flex-wrap gap-3 items-center mx-auto px-5">
               {listing.tags.map((tag, idx) => (
                 <Badge variant="outline" key={idx}>
                   {tag}
