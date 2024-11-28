@@ -7,7 +7,7 @@ const VideoPlayer = () => {
       <div className="absolute inset-0 w-full h-full bg-primary/80 dark:bg-primary/50 blur-3xl -translate-y-20 rounded-3xl aspect-square m-auto"></div>
 
       {/* Video Player Container */}
-      <div className="relative z-10 w-full -translate-y-14 flex flex-col rounded-lg overflow-hidden bg-card p-0 border">
+      <div className="relative z-10 w-full -translate-y-14 flex flex-col rounded-lg overflow-hidden bg-card/50 p-0 border">
         {/* Mock Controls */}
         <div className="flex items-center gap-2 p-2">
           <span className="size-3 rounded-full bg-muted-foreground dark:bg-muted" />

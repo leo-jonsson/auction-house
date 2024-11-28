@@ -28,6 +28,7 @@ import SignOutBtn from "../actions/SignOutBtn";
 import { Skeleton } from "./skeleton";
 import { Button } from "./button";
 import { usePathname } from "next/navigation";
+import SearchBar from "../actions/SearchBar";
 
 const Navbar = () => {
   const api = new ProfileAPI();
@@ -97,6 +98,7 @@ const Navbar = () => {
           ) : user ? (
             <div>
               <div className="sm:flex gap-2 items-center hidden">
+                <SearchBar />
                 <Avatar className="size-8">
                   <AvatarImage
                     src={user.avatar?.url}
@@ -218,6 +220,7 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="flex items-center gap-4">
+              <SearchBar />
               <Link
                 href="/auth/login"
                 className="px-4 py-1 bg-background text-foreground border hover:bg-muted transition-colors rounded-lg sm:flex hidden"
@@ -228,11 +231,12 @@ const Navbar = () => {
                 href="/auth/register"
                 className="px-4 py-1 bg-primary text-white rounded-lg sm:flex hidden"
               >
-                Create an account
+                Sign up
               </Link>
               <span className="sm:flex hidden">
                 <ModeToggle />
               </span>
+
               <Sheet>
                 <SheetTrigger asChild>
                   <Button variant="icon" className="sm:hidden flex">
