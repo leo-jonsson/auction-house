@@ -67,7 +67,7 @@ const Navbar = () => {
 
   return (
     <nav className="w-full top-0 border-b shadow-sm sm:shadow-none bg-background/70 backdrop-blur-md sticky flex items-center justify-between p-2 z-[50]">
-      <div className="flex justify-between max-w-[78rem] w-full mx-auto">
+      <div className="flex justify-between max-w-[78rem] w-full mx-auto md:px-0 px-5">
         <span className="flex items-center gap-1">
           <Logo />
           <span className="font-bold">AUCSOME</span>
@@ -97,7 +97,7 @@ const Navbar = () => {
             <Skeleton className="w-9 aspect-square rounded-full" />
           ) : user ? (
             <div>
-              <div className="sm:flex gap-2 items-center hidden">
+              <div className="sm:flex gap-2 md:gap-4 items-center hidden">
                 <SearchBar />
                 <Avatar className="size-8">
                   <AvatarImage
