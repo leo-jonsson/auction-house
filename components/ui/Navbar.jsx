@@ -29,6 +29,13 @@ import { Skeleton } from "./skeleton";
 import { Button } from "./button";
 import { usePathname } from "next/navigation";
 import SearchBar from "../actions/SearchBar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./dropdown-menu";
 
 const Navbar = () => {
   const api = new ProfileAPI();
@@ -76,7 +83,7 @@ const Navbar = () => {
               {links.map((link) => {
                 const isActive = pathname === link.href; // Använd pathname som redan hämtats
                 return (
-                  <li key={link.name} className="sm:flex hidden">
+                  <li key={link.name} className="md:flex hidden">
                     <Link
                       href={link.href}
                       className={`transition-colors ${
@@ -97,21 +104,31 @@ const Navbar = () => {
             <Skeleton className="w-9 aspect-square rounded-full" />
           ) : user ? (
             <div>
-              <div className="sm:flex gap-2 md:gap-4 items-center hidden">
+              <div className="md:flex gap-2 md:gap-4 items-center hidden">
                 <SearchBar />
-                <Avatar className="size-8">
-                  <AvatarImage
-                    src={user.avatar?.url}
-                    alt={user.avatar?.alt || "User avatar"}
-                  />
-                  <AvatarFallback>{user.name}</AvatarFallback>
-                </Avatar>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Avatar className="size-8 cursor-pointer">
+                      <AvatarImage
+                        src={user.avatar?.url}
+                        alt={user.avatar?.alt || "User avatar"}
+                      />
+                      <AvatarFallback>{user.name}</AvatarFallback>
+                    </Avatar>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem className="p-0">
+                      <SignOutBtn />
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
                 <ModeToggle />
               </div>
-              <div className="sm:hidden block">
+              <div className="md:hidden flex items-center gap-2">
+                <SearchBar />
                 <Sheet>
                   <SheetTrigger asChild>
-                    <Avatar className="cursor-pointer">
+                    <Avatar className="cursor-pointer size-8">
                       <AvatarImage
                         src={user.avatar?.url}
                         alt={user.avatar?.alt || "User avatar"}
@@ -223,23 +240,23 @@ const Navbar = () => {
               <SearchBar />
               <Link
                 href="/auth/login"
-                className="px-4 py-1 bg-background text-foreground border hover:bg-muted transition-colors rounded-lg sm:flex hidden"
+                className="px-4 py-1 bg-background text-foreground border hover:bg-muted transition-colors rounded-lg md:flex hidden"
               >
                 Login
               </Link>
               <Link
                 href="/auth/register"
-                className="px-4 py-1 bg-primary text-white rounded-lg sm:flex hidden"
+                className="px-4 py-1 bg-primary text-white rounded-lg md:flex hidden"
               >
                 Sign up
               </Link>
-              <span className="sm:flex hidden">
+              <span className="md:flex hidden">
                 <ModeToggle />
               </span>
 
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="icon" className="sm:hidden flex">
+                  <Button variant="icon" className="md:hidden flex">
                     <FaBars />
                   </Button>
                 </SheetTrigger>
@@ -272,7 +289,7 @@ const Navbar = () => {
                     <span className="mr-auto">
                       <Link
                         href="/auth/login"
-                        className="px-4 py-1 bg-primary text-white rounded-full sm:hidden flex"
+                        className="px-4 py-1 bg-primary text-white rounded-full md:hidden flex"
                       >
                         Login
                       </Link>

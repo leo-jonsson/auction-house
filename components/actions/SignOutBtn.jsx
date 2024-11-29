@@ -7,6 +7,7 @@ const SignOutBtn = () => {
   const api = new ProfileAPI();
   return (
     <Button
+      className="w-full"
       onClick={async () => {
         await api.profile.signOut();
       }}
