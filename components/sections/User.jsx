@@ -6,10 +6,9 @@ import ProfilePage from "../ui/ProfileCard";
 const UserPage = () => {
   const params = useParams();
   const userID = params.id;
-  console.log(userID);
 
   return (
-    <section>
+    <section className="sm:px-0 px-2">
       <ProfilePage username={userID} />
     </section>
   );

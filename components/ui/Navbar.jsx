@@ -22,6 +22,7 @@ import {
   FaHome,
   FaBars,
   FaPlusCircle,
+  FaThList,
 } from "react-icons/fa";
 import ModeToggle from "../theme/ModeToggle";
 import SignOutBtn from "../actions/SignOutBtn";
@@ -36,6 +37,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./dropdown-menu";
+import { Grid } from "lucide-react";
 
 const Navbar = () => {
   const api = new ProfileAPI();
@@ -76,8 +78,10 @@ const Navbar = () => {
     <nav className="w-full top-0 border-b shadow-sm sm:shadow-none bg-background/70 backdrop-blur-md sticky flex items-center justify-between p-2 z-[50]">
       <div className="flex justify-between max-w-[78rem] w-full mx-auto md:px-0 px-5">
         <span className="flex items-center gap-1">
-          <Logo />
-          <span className="font-bold">AUCSOME</span>
+          <Link href="/" className="flex items-center gap-0.5">
+            <Logo />
+            <span className="font-bold lg:text-xl">AUCSOME</span>
+          </Link>
           <div className="flex items-center gap-5">
             <ul className="flex gap-5 ml-5 text-muted-foreground">
               {links.map((link) => {
@@ -159,27 +163,6 @@ const Navbar = () => {
                         <li>
                           <SheetClose asChild>
                             <Link
-                              href={`/user/${user.name}`}
-                              className="hover:bg-muted hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2"
-                            >
-                              <FaRegUser /> Profile
-                            </Link>
-                          </SheetClose>
-                        </li>
-                        <li>
-                          <SheetClose asChild>
-                            <Link
-                              href="/"
-                              className="hover:bg-muted hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2"
-                            >
-                              <FaRegChartBar /> My Biddings
-                            </Link>
-                          </SheetClose>
-                        </li>
-
-                        <li>
-                          <SheetClose asChild>
-                            <Link
                               href="/"
                               className="hover:bg-muted hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2"
                             >
@@ -191,25 +174,25 @@ const Navbar = () => {
                         <li>
                           <SheetClose asChild>
                             <Link
-                              href="/about"
+                              href="/listings"
                               className="hover:bg-muted hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2"
                             >
-                              <FaInfoCircle />
-                              About
+                              <FaThList />
+                              Listings
                             </Link>
                           </SheetClose>
                         </li>
                         <li>
                           <SheetClose asChild>
                             <Link
-                              href="/contact"
+                              href={`/user/${user.name}`}
                               className="hover:bg-muted hover:text-foreground transition-colors w-full  p-2 rounded-lg flex items-center gap-2"
                             >
-                              <FaPhone />
-                              Contact
+                              <FaRegUser /> Profile
                             </Link>
                           </SheetClose>
                         </li>
+
                         <li>
                           <SheetClose asChild>
                             <Link
@@ -223,7 +206,7 @@ const Navbar = () => {
                         </li>
                       </ul>
                     </div>
-                    <div className="flex">
+                    <div className="flex items-center">
                       <span className="mr-auto">
                         <SignOutBtn />
                       </span>
@@ -278,18 +261,13 @@ const Navbar = () => {
                           <Link href="/listings">Listings</Link>
                         </SheetClose>
                       </li>
-                      <li>
-                        <SheetClose asChild>
-                          <Link href="/contact">Contact</Link>
-                        </SheetClose>
-                      </li>
                     </ul>
                   </div>
-                  <div className="flex">
+                  <div className="flex items-center">
                     <span className="mr-auto">
                       <Link
                         href="/auth/login"
-                        className="px-4 py-1 bg-primary text-white rounded-full md:hidden flex"
+                        className="px-4 py-1 bg-primary text-white rounded-lg md:hidden flex"
                       >
                         Login
                       </Link>

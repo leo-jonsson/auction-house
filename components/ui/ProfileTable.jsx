@@ -1,22 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "./table";
 import { Switch } from "./switch";
 import { Card } from "./card";
-import { ScrollArea } from "./scroll-area"; // Ensure you have this component
+import { ScrollArea } from "./scroll-area";
 import Link from "next/link";
-import { FaExternalLinkAlt } from "react-icons/fa";
-import { timeSince } from "@/lib/utilities/date";
-import { Settings } from "lucide-react";
 
 const ProfileTable = ({ listings }) => {
   const [showExpired, setShowExpired] = useState(false);
@@ -56,35 +44,24 @@ const ProfileTable = ({ listings }) => {
         )}
       </div>
       <div className="mx-auto pb-3 bg-card">
-        {/* Wrap the table in a ScrollArea for horizontal scrolling */}
         <ScrollArea className="h-[20rem] w-full">
-          {filteredListings &&
-            filteredListings.map((listing, idx) => (
-              <span key={idx}>
-                <div className="flex justify-between items-center w-full border-b p-2">
-                  <Link
-                    href={`/listings/${listing.id}`}
-                    className="flex items-center gap-2"
-                  >
-                    <img
-                      src={listing?.media[0]?.url}
-                      alt=""
-                      className="size-12 rounded-lg"
-                    />
-                    <h5 className="max-w-[5ch] truncate">{listing.title}</h5>{" "}
-                    {isExpired(listing.endsAt) ? (
-                      <p className="text-destructive">(Expired)</p>
-                    ) : (
-                      <p className="text-primary">(Active)</p>
-                    )}
-                  </Link>
-
-                  <span className="flex items-center gap-2 bg-card border py-1 px-2 rounded-md text-muted-foreground hover:text-foreground transition-colors">
-                    <span className="sm:block hidden">Manage</span> <Settings />
-                  </span>
-                </div>
-              </span>
-            ))}
+          {filteredListings.length > 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 px-2">
+              {filteredListings.map((listing, idx) => (
+                <Link href={`/listings/${listing.id}`} key={idx}>
+                  <img
+                    src={listing.media[0]?.url || "/placeholder.png"}
+                    alt=""
+                    className="w-full h-full aspect-[3/4] object-cover rounded-lg border"
+                  />
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-muted-foreground py-6">
+              No listings
+            </p>
+          )}
         </ScrollArea>
       </div>
     </Card>

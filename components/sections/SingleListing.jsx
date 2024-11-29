@@ -16,13 +16,15 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import AnimatedShinyText from "../ui/animated-shiny-text";
+import Timer from "@/lib/utilities/Timer";
 
 const SingleListing = ({ listing }) => {
   return (
     <section className="grid gap-5 w-full h-full">
       <div className="grid md:grid-cols-2 px-3 gap-2 py-2 relative items-center">
-        <div className="grid inview-animate-hide">
+        <div className="grid gap-2 inview-animate-hide">
           <ImgSlider carouselItems={listing.media} />
+          <Timer date={listing.endsAt} />
         </div>
         <div className="flex flex-col text-center items-center pt-4 w-full overflow-x-hidden inview-animate-hide">
           <div className="grid gap-3">
@@ -41,15 +43,17 @@ const SingleListing = ({ listing }) => {
               </Avatar>
             </Link>
             <h1 className="text-3xl font-bold">{listing.title}</h1>
-            <h2 className="text-muted-foreground sm:px-12">
+            <p className="text-muted-foreground sm:px-12">
               {listing.description}
-            </h2>
+            </p>
             <div className="flex flex-wrap gap-3 items-center mx-auto px-5">
-              {listing.tags.map((tag, idx) => (
-                <Badge variant="outline" key={idx}>
-                  {tag}
-                </Badge>
-              ))}
+              {listing.tags
+                .filter((tag) => tag.trim() !== "") // Filter out empty or whitespace-only strings
+                .map((tag, idx) => (
+                  <Badge variant="outline" key={idx}>
+                    {tag}
+                  </Badge>
+                ))}
             </div>
           </div>
           <div className="flex flex-col justify-center items-center gap-2 pt-5 w-full mx-auto">

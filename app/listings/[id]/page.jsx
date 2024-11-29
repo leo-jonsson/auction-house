@@ -30,11 +30,11 @@ const SingleListingPage = () => {
   }, [listingId]);
 
   return (
-    <div className="flex flex-col min-h-[90vh] max-w-[65rem] md:mx-auto">
+    <div className="flex flex-col min-h-[90vh] max-w-[65rem] md:mx-auto justify-center items-center">
       {isLoading ? (
-        <div className="grid md:grid-cols-2 w-full justify-center gap-2 h-full pt-16 px-2">
-          <Skeleton className="aspect-[3/4] w-full" />
-          <Skeleton className="aspect-[3/4] w-full" />
+        <div className="grid md:grid-cols-2 w-full h-full gap-2 px-2 pt-2">
+          <Skeleton className="aspect-[3/4] w-full h-full" />
+          <Skeleton className="aspect-[3/4] w-full h-full" />
         </div>
       ) : (
         <>

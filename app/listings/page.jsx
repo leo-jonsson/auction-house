@@ -1,11 +1,7 @@
 import Listings from "@/components/sections/Listings";
 
 const ListPage = () => {
-  return (
-    <div>
-      <Listings />
-    </div>
-  );
+  return <Listings />;
 };
 
 export default ListPage;

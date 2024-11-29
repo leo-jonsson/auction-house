@@ -2,7 +2,7 @@ import React from "react";
 
 const VideoPlayer = () => {
   return (
-    <div className="relative max-w-[60rem] h-full flex items-center justify-center">
+    <div className="relative max-w-[60rem] h-full flex items-center justify-center mx-auto">
       {/* Background Blur/Gradient Effect */}
       <div className="absolute inset-0 w-full h-full bg-primary/80 dark:bg-primary/50 blur-3xl -translate-y-20 rounded-3xl aspect-square m-auto"></div>
 

@@ -54,9 +54,9 @@ const SearchBar = () => {
         <Button
           variant="outline"
           size="sm"
-          className="flex gap-8 text-muted-foreground hover:text-foreground transition-colors bg-muted/50 hover:border-foreground/30 h-8"
+          className="flex gap-3 sm:gap-8 text-muted-foreground hover:text-foreground transition-colors bg-muted/50 hover:border-foreground/30 h-8"
         >
-          <span className="md:block hidden">Search posts...</span>
+          <span>Search posts...</span>
           <Search />
         </Button>
       </DialogTrigger>
