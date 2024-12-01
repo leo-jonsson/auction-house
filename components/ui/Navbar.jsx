@@ -76,7 +76,7 @@ const Navbar = () => {
 
   return (
     <nav className="w-full top-0 border-b shadow-sm sm:shadow-none bg-background/70 backdrop-blur-md sticky flex items-center justify-between p-2 z-[50]">
-      <div className="flex justify-between max-w-[78rem] w-full mx-auto md:px-0 px-5">
+      <div className="flex justify-between max-w-[78rem] w-full mx-auto md:px-0 px-1">
         <span className="flex items-center gap-1">
           <Link href="/" className="flex items-center gap-0.5">
             <Logo />
@@ -223,13 +223,13 @@ const Navbar = () => {
               <SearchBar />
               <Link
                 href="/auth/login"
-                className="px-4 py-1 bg-background text-foreground border hover:bg-muted transition-colors rounded-lg md:flex hidden"
+                className="px-4 py-1.5 bg-background text-foreground text-sm  border hover:bg-muted transition-colors rounded-lg md:flex hidden"
               >
                 Login
               </Link>
               <Link
                 href="/auth/register"
-                className="px-4 py-1 bg-primary text-white rounded-lg md:flex hidden"
+                className="px-4 py-1.5 bg-primary text-white text-sm rounded-lg md:flex hidden"
               >
                 Sign up
               </Link>

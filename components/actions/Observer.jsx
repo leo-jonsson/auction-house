@@ -9,8 +9,6 @@ const IntersectionObserverComponent = ({ listings }) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("inview-animate-show");
-        } else {
-          entry.target.classList.remove("inview-animate-show");
         }
       });
     };

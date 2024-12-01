@@ -49,7 +49,7 @@ body {
     --muted-foreground: 240 5% 64.9%;
     --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 62.8% 40.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
@@ -76,16 +76,16 @@ body {
 }
 
 .inview-animate-hide {
-  opacity: 0;
-  transform: translateY(2.2rem);
-  filter: blur(1rem);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  opacity: 0.5;
+  filter: blur(0.2rem);
+  transform: translateY(1.5rem);
+  transition: 300ms ease-in;
 }
 
 .inview-animate-show {
   opacity: 1;
-  transform: translateY(0);
   filter: blur(0);
+  transform: translateY(0);
 }
 
 .custom-radius-1 {
