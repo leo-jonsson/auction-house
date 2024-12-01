@@ -12,7 +12,7 @@ const ListingCard = ({ listing }) => {
 
   return (
     <Link href={`/listings/${listing.id}`}>
-      <Card className="relative inview-animate-hide rounded-lg h-full overflow-hidden aspect-[3/4]">
+      <Card className="relative inview-animate-hide rounded-lg h-auto overflow-hidden mb-3 min-h-[10rem]">
         <div className="absolute top-0 left-0 w-full flex items-center px-2 py-1 justify-between gap-2 z-20 bg-black/50 text-white backdrop-blur-sm">
           <div className="flex items-center gap-2">
             <Avatar className="size-7">
@@ -32,7 +32,7 @@ const ListingCard = ({ listing }) => {
           <img
             src={mainImage?.url || "/placeholder.png"}
             alt={mainImage?.alt || "Listing image"}
-            className="w-full object-cover bg-muted h-full absolute inset-0"
+            className="w-full object-cover bg-muted h-full inset-0"
           />
         </CardHeader>
         <CardContent className="flex justify-end w-full gap-1 p-2 pt-2 absolute bottom-0">

@@ -1,11 +1,11 @@
 import React from "react";
 
-const Logo = () => {
+const Logo = ({ width, height }) => {
   return (
     <svg
       id="logo-86"
-      width="20"
-      height="20"
+      width={width}
+      height={height}
       viewBox="0 0 40 40"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

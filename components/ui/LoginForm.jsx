@@ -18,6 +18,7 @@ import { PasswordInput } from "@/components/ui/password-input";
 import { login } from "@/lib/api/auth/login";
 import { loginSchema } from "@/app/schema";
 import LoadingButton from "@/components/ui/LoadingButton";
+import Link from "next/link";
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -92,6 +93,12 @@ export default function LoginForm() {
         ) : (
           <LoadingButton message="Login" />
         )}
+        <p className="text-muted-foreground">
+          Don't have an account?{" "}
+          <Link href="/auth/register" className="text-primary">
+            Register
+          </Link>
+        </p>
       </form>
     </Form>
   );

@@ -20,6 +20,7 @@ import { register } from "@/lib/api/auth/register";
 import { registerSchema } from "@/app/schema";
 import LoadingButton from "@/components/ui/LoadingButton";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -145,6 +146,12 @@ export default function RegisterForm() {
           <LoadingButton message="Register" />
         )}
       </form>
+      <p className="text-muted-foreground">
+        Already have an account?{" "}
+        <Link href="/auth/login" className="text-primary">
+          Login
+        </Link>
+      </p>
     </Form>
   );
 }

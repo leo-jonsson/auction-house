@@ -79,7 +79,7 @@ const Navbar = () => {
       <div className="flex justify-between max-w-[78rem] w-full mx-auto md:px-0 px-1">
         <span className="flex items-center gap-1">
           <Link href="/" className="flex items-center gap-0.5">
-            <Logo />
+            <Logo width={20} height={20} />
             <span className="font-bold lg:text-xl">AUCSOME</span>
           </Link>
           <div className="flex items-center gap-5">

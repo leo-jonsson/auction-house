@@ -11,7 +11,7 @@ import GoalPieChart from "./PieChart";
 import { MockChart } from "./MockChart";
 import HotUsers from "./HotUsers";
 import { Skeleton } from "./skeleton";
-import { Loader, Settings } from "lucide-react";
+import { Loader, Loader2, Settings } from "lucide-react";
 import { loggedInUser } from "@/lib/utilities/getUser";
 import ListingCard from "./ListingCard";
 import Link from "next/link";
@@ -19,6 +19,7 @@ import { timeUntil } from "@/lib/utilities/date";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./dialog";
 import { Button } from "./button";
 import UpdateProfile from "../actions/UpdateProfile";
+import Logo from "./Logo";
 
 const ProfilePage = ({ username }) => {
   const [profile, setProfile] = useState(null);
@@ -44,7 +45,7 @@ const ProfilePage = ({ username }) => {
     return (
       <div className="absolute inset-0 w-full h-full">
         <Skeleton className="w-full h-full flex justify-center items-center">
-          <Loader className="animate-spin size-32" />
+          <Logo width={120} height={120} className="animate-spin" />
         </Skeleton>
       </div>
     );

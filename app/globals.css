@@ -77,14 +77,12 @@ body {
 
 .inview-animate-hide {
   opacity: 0.5;
-  filter: blur(0.2rem);
   transform: translateY(1.5rem);
   transition: 300ms ease-in;
 }
 
 .inview-animate-show {
   opacity: 1;
-  filter: blur(0);
   transform: translateY(0);
 }
 
