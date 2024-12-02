@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import ListingFetcher from "../actions/ListingsFetcher";
 import ListingGrid from "../ui/ListingGrid";
 import PaginationControls from "../actions/Pagination";
@@ -30,23 +30,25 @@ const Listings = () => {
   };
 
   return (
-    <section className="grid gap-5 mt-10">
-      <h1 className="text-5xl px-3 text-center">Listings</h1>
-      <ListingFetcher
-        limit={limit}
-        page={page}
-        setListings={setListings}
-        setTotalPages={setTotalPages}
-        setIsLoading={setIsLoading}
-      />
-      <ListingGrid listings={listings} isLoading={isLoading} limit={limit} />
-      <PaginationControls
-        page={page}
-        totalPages={totalPages}
-        handleNextPage={handleNextPage}
-        handlePrevPage={handlePrevPage}
-      />
-    </section>
+    <Suspense>
+      <section className="grid gap-5 mt-10">
+        <h1 className="text-5xl px-3 text-center">Listings</h1>
+        <ListingFetcher
+          limit={limit}
+          page={page}
+          setListings={setListings}
+          setTotalPages={setTotalPages}
+          setIsLoading={setIsLoading}
+        />
+        <ListingGrid listings={listings} isLoading={isLoading} limit={limit} />
+        <PaginationControls
+          page={page}
+          totalPages={totalPages}
+          handleNextPage={handleNextPage}
+          handlePrevPage={handlePrevPage}
+        />
+      </section>
+    </Suspense>
   );
 };
 
