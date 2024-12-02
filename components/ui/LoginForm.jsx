@@ -94,7 +94,7 @@ export default function LoginForm() {
           <LoadingButton message="Login" />
         )}
         <p className="text-muted-foreground">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link href="/auth/register" className="text-primary">
             Register
           </Link>
