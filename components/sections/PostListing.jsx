@@ -6,14 +6,12 @@ import ListingAPI from "@/lib/api/listings";
 const PostListing = () => {
   const handleFormSubmit = async (data) => {
     try {
-      console.log("submitting data: ", data);
       const response = await new ListingAPI().listings.create(data);
       setTimeout(() => {
         window.location.href = `/listings/${response.data.id}`;
       }, 300);
     } catch (error) {
       console.error("Failed to create listing:", error);
-      // Optionally show an error message
     }
   };
 

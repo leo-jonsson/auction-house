@@ -1,11 +1,10 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ListingFetcher from "../actions/ListingsFetcher";
 import ListingGrid from "../ui/ListingGrid";
 import PaginationControls from "../actions/Pagination";
-import IntersectionObserverComponent from "../actions/Observer";
 
 const Listings = () => {
   const router = useRouter();
@@ -47,7 +46,6 @@ const Listings = () => {
         handleNextPage={handleNextPage}
         handlePrevPage={handlePrevPage}
       />
-      <IntersectionObserverComponent listings={listings} />
     </section>
   );
 };

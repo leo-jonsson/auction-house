@@ -60,9 +60,13 @@ const SingleListing = ({ listing }) => {
             {loggedInUser ? (
               // Show BidForm if user is logged in
               listing.seller.name === loggedInUser?.name ? (
-                <Button>
+                <Link
+                  href={`/listings/edit/${listing.id}`}
+                  className="flex items-center gap-1 bg-primary p-2 rounded-lg text-white
+                  "
+                >
                   Manage <Settings />
-                </Button>
+                </Link>
               ) : (
                 <BidForm target={listing} />
               )

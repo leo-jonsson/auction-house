@@ -74,12 +74,12 @@ body {
 body {
   font-family: "Inter", "open-sans";
 }
-
+/* 
 .inview-animate-hide {
   opacity: 0.5;
   transform: translateY(1.5rem);
   transition: 300ms ease-in;
-}
+} */
 
 .inview-animate-show {
   opacity: 1;

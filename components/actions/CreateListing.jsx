@@ -61,9 +61,7 @@ export default function AuctionForm({ onSubmit }) {
     }
     setLoading(true); // Set loading state to true on submit
 
-    const tagsArray = tags
-      ? tags.split("," && " ").map((tag) => tag.trim())
-      : [];
+    const tagsArray = tags ? tags.split(" ").map((tag) => tag.trim()) : [];
     const formData = {
       title,
       description,
@@ -73,7 +71,7 @@ export default function AuctionForm({ onSubmit }) {
     };
 
     try {
-      await onSubmit(formData); // Assuming onSubmit is an async function
+      await onSubmit(formData);
     } catch (err) {
       setError("An error occurred during submission.");
     } finally {
@@ -179,7 +177,7 @@ export default function AuctionForm({ onSubmit }) {
           </Popover>
         </div>
         <div className="grid gap-2 sm:basis-2/3 w-full">
-          <Label htmlFor="tags">Tags (comma or space-separated)</Label>
+          <Label htmlFor="tags">Tags (space-separated)</Label>
           <Input
             id="tags"
             type="text"
