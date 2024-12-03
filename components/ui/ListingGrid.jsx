@@ -10,7 +10,7 @@ const ListingGrid = ({ listings, isLoading, limit }) => {
             <Skeleton key={index} className="size-full aspect-[3/4] mb-4" />
           ))
         : listings.map((listing, idx) => (
-            <BlurFade key={idx} delay={0.1 + idx * 0.04} inView>
+            <BlurFade key={idx} delay={0.4} inView>
               <ListingCard listing={listing} key={idx} />
             </BlurFade>
           ))}

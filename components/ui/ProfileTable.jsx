@@ -5,6 +5,9 @@ import { Switch } from "./switch";
 import { Card } from "./card";
 import { ScrollArea } from "./scroll-area";
 import Link from "next/link";
+import { Button } from "./button";
+import { Trash2 } from "lucide-react";
+import ListingAPI from "@/lib/api/listings";
 
 const ProfileTable = ({ listings }) => {
   const [showExpired, setShowExpired] = useState(false);
@@ -48,13 +51,28 @@ const ProfileTable = ({ listings }) => {
           {filteredListings.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 px-2">
               {filteredListings.map((listing, idx) => (
-                <Link href={`/listings/${listing.id}`} key={idx}>
-                  <img
-                    src={listing.media[0]?.url || "/placeholder.png"}
-                    alt=""
-                    className="w-full h-full aspect-[3/4] object-cover rounded-lg border"
-                  />
-                </Link>
+                <div className="relative" key={idx}>
+                  <Link href={`/listings/${listing.id}`}>
+                    <img
+                      src={listing.media[0]?.url || "/placeholder.png"}
+                      alt=""
+                      className="w-full h-full aspect-[3/4] object-cover rounded-lg border"
+                    />
+                  </Link>
+                  <Button
+                    className={`absolute top-0 right-0 z-20 ${
+                      isExpired(listing.endsAt) ? "flex" : "hidden"
+                    }`}
+                    size="icon"
+                    variant="destructive"
+                    onClick={async () => {
+                      await new ListingAPI().listings.delete(listing.id);
+                    }}
+                  >
+                    <Trash2 />
+                    <span className="sr-only">Delete listing</span>
+                  </Button>
+                </div>
               ))}
             </div>
           ) : (

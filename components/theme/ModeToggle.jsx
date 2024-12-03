@@ -1,10 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { Moon, MoonStar, Sun } from "lucide-react";
+import { MoonStar, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
-import { Button } from "@/components/ui/button";
 import { Switch } from "../ui/switch";
 import { Label } from "../ui/label";
 
