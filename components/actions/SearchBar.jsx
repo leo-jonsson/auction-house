@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogClose,
@@ -48,18 +48,35 @@ const SearchBar = () => {
 
   const closeDialog = () => setIsOpen(false); // Function to close the dialog
 
+  // Add keyboard shortcut support
+  React.useEffect(() => {
+    const down = (e) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setIsOpen((open) => !open);
+      }
+    };
+
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
+  }, []);
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Button
-          variant="outline"
-          size="sm"
-          className="flex gap-3 sm:gap-8 text-muted-foreground hover:text-foreground transition-colors bg-muted/50 hover:border-foreground/30 h-8"
-        >
-          <span>Search posts...</span>
-          <Search />
-        </Button>
-      </DialogTrigger>
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => {
+          setIsOpen((prev) => !prev);
+        }}
+        className="flex gap-3 sm:gap-8 text-muted-foreground hover:text-foreground transition-colors bg-muted/50 hover:border-foreground/30 h-8"
+      >
+        <span>Search posts...</span>
+        <kbd className="-me-1 inline-flex h-5 max-h-full items-center rounded border border-border bg-background px-1 font-[inherit] text-[0.625rem] font-medium text-muted-foreground/70">
+          ⌘K
+        </kbd>
+      </Button>
+
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="sr-only">Browse posts</DialogTitle>
@@ -82,9 +99,6 @@ const SearchBar = () => {
                 onChange={(e) => setQuery(e.target.value)}
               />
             </div>
-            {/* <Button type="submit" disabled={loading} variant="ghost">
-              {loading ? "Searching..." : ""}
-            </Button> */}
           </div>
         </form>
         <ScrollArea className="h-64 mt-4 relative">

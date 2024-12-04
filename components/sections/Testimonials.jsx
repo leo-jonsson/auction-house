@@ -69,9 +69,8 @@ export default function Testimonials() {
           <h2 className="text-2xl md:text-4xl font-bold">
             Used by thousands of people
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground">
-            Here is what some of them say about{" "}
-            <span className="text-primary">aucsome</span>
+          <p className="text-lg text-muted-foreground">
+            Here is what some of them say about us
           </p>
         </div>
         <Marquee pauseOnHover className="[--duration:20s]">

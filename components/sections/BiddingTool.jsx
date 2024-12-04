@@ -18,17 +18,16 @@ const BiddingTool = () => {
             <h3 className="md:text-4xl text-2xl font-bold">
               Introducing bidding tool
             </h3>
-            <p className="text-muted-foreground leading-7 text-lg">
+            <p className="text-muted-foreground leading-7 text-lg max-w-[40rem]">
               Our new bidding tool allows you to keep track of a listed items
               bidding history. Analyze others involved by using the chart
               statistics.
             </p>
             <Link
               href="/listings"
-              className="bg-primary text-white font-semibold rounded-full py-2 px-4 hover:bg-primary/80 transition-all flex items-center gap-1 shadow-md mt-5"
+              className="bg-primary text-white rounded-full py-4 px-7 hover:bg-primary/80 transition-all shadow-md mt-5"
             >
               Browse listings
-              <ArrowRight className="size-4" />
             </Link>
           </div>
           <LandingPageChart />
