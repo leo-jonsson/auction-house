@@ -3,6 +3,7 @@ import Navbar from "@/components/ui/Navbar";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
+import Footer from "@/components/ui/Footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
           <Navbar />
           <main className="mx-auto max-w-[80rem] grid">{children}</main>
           <Toaster />
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

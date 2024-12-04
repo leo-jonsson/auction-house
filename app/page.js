@@ -1,23 +1,17 @@
-"use client";
+import BiddingTool from "@/components/sections/BiddingTool";
 import Demo from "@/components/sections/Demo";
+import Faq from "@/components/sections/Faq";
 import Hero from "@/components/sections/Hero";
-import ListingAPI from "@/lib/api/listings";
-import { useEffect } from "react";
+import Testimonials from "@/components/sections/Testimonials";
 
 export default function Home() {
-  const api = new ListingAPI();
-  useEffect(() => {
-    const fetchMock = async () => {
-      const data = await api.listings.readAll();
-      console.log(data.data);
-    };
-    fetchMock();
-  });
-
   return (
     <>
       <Hero />
       <Demo />
+      <Testimonials />
+      <BiddingTool />
+      <Faq />
     </>
   );
 }

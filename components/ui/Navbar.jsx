@@ -75,7 +75,7 @@ const Navbar = () => {
       ];
 
   return (
-    <nav className="w-full top-0 border-b shadow-sm sm:shadow-none bg-background/70 backdrop-blur-md sticky flex items-center justify-between p-2 z-[50]">
+    <nav className="w-full top-0 border-b shadow-sm sm:shadow-none bg-background sticky flex items-center justify-between px-2 py-2 md:py-4 z-[50]">
       <div className="flex justify-between max-w-[78rem] w-full mx-auto md:px-0 px-1">
         <span className="flex items-center gap-1">
           <Link href="/" className="flex items-center gap-0.5">
