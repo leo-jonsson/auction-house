@@ -18,7 +18,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} antialiased overflow-x-hidden`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
           <main className="mx-auto max-w-[80rem] grid">{children}</main>

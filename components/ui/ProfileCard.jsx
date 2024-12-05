@@ -11,11 +11,9 @@ import GoalPieChart from "./PieChart";
 import { MockChart } from "./MockChart";
 import HotUsers from "./HotUsers";
 import { Skeleton } from "./skeleton";
-import { Loader, Loader2, Settings } from "lucide-react";
+import { Settings } from "lucide-react";
 import { loggedInUser } from "@/lib/utilities/getUser";
-import ListingCard from "./ListingCard";
 import Link from "next/link";
-import { timeUntil } from "@/lib/utilities/date";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./dialog";
 import { Button } from "./button";
 import UpdateProfile from "../actions/UpdateProfile";
@@ -24,6 +22,8 @@ import Logo from "./Logo";
 const ProfilePage = ({ username }) => {
   const [profile, setProfile] = useState(null);
   const [error, setError] = useState(null);
+
+  const isExpired = (endsAt) => new Date(endsAt) < new Date();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -87,16 +87,25 @@ const ProfilePage = ({ username }) => {
             </li>
           </CardFooter>
         </Card>
-        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 w-ful px-3 lg:px-0">
+        <div className="md:columns-2 lg:columns-3 gap-2 w-ful px-3 lg:px-0">
           {profile._count.listings > 0 ? (
             profile.listings.map((listing, idx) => (
               <Link href={`/listings/${listing.id}`} key={idx}>
-                <Card className="overflow-hidden">
+                <Card className="overflow-hidden mb-3 relative">
                   <img
                     src={listing.media[0]?.url}
                     alt={listing.media[0]?.alt}
-                    className="aspect-[3/4] object-cover w-full h-full"
+                    className="object-cover w-full h-full"
                   />
+                  <span
+                    className={`absolute inset-0 bg-destructive/40 ${
+                      isExpired(listing.endsAt) ? "flex" : "hidden"
+                    }`}
+                  >
+                    <span className="m-auto text-white font-bold text-2xl">
+                      SOLD
+                    </span>
+                  </span>
                 </Card>
               </Link>
             ))

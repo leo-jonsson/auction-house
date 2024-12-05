@@ -11,6 +11,7 @@ import RegisterForm from "@/components/ui/RegisterForm";
 const RegisterPage = () => {
   return (
     <section className="sm:p-0 px-2 flex flex-col items-center justify-center min-h-[90vh]">
+      <h1 className="sr-only">REGISTER PAGE</h1>
       <Card className="max-w-[25rem] w-full p-5 grid gap-4">
         <CardTitle>Register an account</CardTitle>
         <RegisterForm />

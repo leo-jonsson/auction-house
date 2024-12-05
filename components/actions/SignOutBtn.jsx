@@ -7,13 +7,13 @@ const SignOutBtn = () => {
   const api = new ProfileAPI();
   return (
     <Button
-      className="w-full bg- text-destructive hover:text-destructive md:border-none hover:bg-background md:rounded-none"
+      className="w-full  hover:text-destructive md:border-none hover:bg-background md:rounded-none"
       variant="outline"
       onClick={async () => {
         await api.profile.signOut();
       }}
     >
-      <MdLogout />
+      <MdLogout className="text-destructive" />
       Sign out
     </Button>
   );
