@@ -34,10 +34,8 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./dropdown-menu";
-import { Grid } from "lucide-react";
 
 const Navbar = () => {
   const api = new ProfileAPI();
@@ -90,8 +88,10 @@ const Navbar = () => {
                   <li key={link.name} className="md:flex hidden">
                     <Link
                       href={link.href}
-                      className={`transition-colors ${
-                        isActive ? "text-foreground" : "hover:text-foreground"
+                      className={`transition-all ${
+                        isActive
+                          ? "text-foreground font-bold"
+                          : "hover:text-foreground"
                       }`}
                     >
                       {link.name}

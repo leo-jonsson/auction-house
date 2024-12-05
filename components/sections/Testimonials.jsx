@@ -2,45 +2,57 @@ import { cn } from "@/lib/utils";
 import Marquee from "@/components/ui/marquee";
 import BlurFade from "../ui/blur-fade";
 
+// fake testimonials for good ui :D
 const reviews = [
   {
-    name: "Jack",
-    username: "@jack",
-    body: "I've never seen anything like this before. It's amazing. I love it.",
-    img: "https://avatar.vercel.sh/jack",
+    name: "Emma Johnson",
+    username: "@emma.stud.noroff.no",
+    body: "I love being able to buy and sell items in a platform designed for students. Absolutely fantastic!",
+    img: "https://avatar.vercel.sh/emma",
   },
   {
-    name: "Jill",
-    username: "@jill",
-    body: "I don't know what to say. I'm speechless. This is amazing.",
-    img: "https://avatar.vercel.sh/jill",
+    name: "Liam Smith",
+    username: "@liam.stud.noroff.no",
+    body: "This auction site has been such a game changer for student budgets. Highly recommend it!",
+    img: "https://avatar.vercel.sh/liam",
   },
   {
-    name: "John",
-    username: "@john",
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: "https://avatar.vercel.sh/john",
+    name: "Sophia Brown",
+    username: "@sophia.stud.noroff.no",
+    body: "I've found so many great deals here. It’s perfect for students who want to save money.",
+    img: "https://avatar.vercel.sh/sophia",
   },
   {
-    name: "Jane",
-    username: "@jane",
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: "https://avatar.vercel.sh/jane",
+    name: "Noah Davis",
+    username: "@noah.stud.noroff.no",
+    body: "Selling my old items has never been easier. This platform is exactly what students need.",
+    img: "https://avatar.vercel.sh/noah",
   },
   {
-    name: "Jenny",
-    username: "@jenny",
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: "https://avatar.vercel.sh/jenny",
+    name: "Olivia Taylor",
+    username: "@olivia.stud.noroff.no",
+    body: "I can’t believe how easy it is to use. It’s the best platform for student auctions!",
+    img: "https://avatar.vercel.sh/olivia",
   },
   {
-    name: "James",
-    username: "@james",
-    body: "I'm at a loss for words. This is amazing. I love it.",
+    name: "William Wilson",
+    username: "@william.stud.noroff.no",
+    body: "Finally, a marketplace tailored for students. I’ve been recommending it to everyone I know!",
+    img: "https://avatar.vercel.sh/william",
+  },
+  {
+    name: "Charlotte Moore",
+    username: "@charlotte.stud.noroff.no",
+    body: "This site has everything a student could need. Great deals and an easy-to-use interface.",
+    img: "https://avatar.vercel.sh/charlotte",
+  },
+  {
+    name: "James Anderson",
+    username: "@james.stud.noroff.no",
+    body: "A brilliant concept for students. It’s been a lifesaver for finding affordable essentials.",
     img: "https://avatar.vercel.sh/james",
   },
 ];
-
 const firstRow = reviews.slice(0, reviews.length / 2);
 const secondRow = reviews.slice(reviews.length / 2);
 

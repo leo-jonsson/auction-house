@@ -59,7 +59,7 @@ const SingleListing = ({ listing }) => {
                   {listing.description}
                 </p>
               </BoxReveal>
-              <div className="flex flex-wrap gap-3 items-center mx-auto px-5">
+              <div className="flex gap-3 items-center mx-auto flex-wrap">
                 {listing.tags
                   .filter((tag) => tag.trim() !== "") // Filter out empty or whitespace-only strings
                   .map((tag, idx) => (

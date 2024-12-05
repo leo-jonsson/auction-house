@@ -41,3 +41,19 @@ export const registerSchema = z
     message: "Passwords must match",
     path: ["confirmPassword"], // Connect error message to confirmPassword
   });
+
+export const listingSchema = z.object({
+  title: z.string().min(1, "Title is required"), // Title is now required
+  description: z.string().max(280).optional(),
+  endsAt: z.coerce.date().min(new Date(), "Ending date must be in the future"), // Ending date is required and must be in the future
+  tags: z.array(z.string()).optional(),
+  media: z
+    .array(
+      z.object({
+        url: z.string().min(1, "Media URL is required"), // Media URL is required
+        alt: z.string().optional(),
+      })
+    )
+    .min(1, "At least one media item is required.")
+    .max(8, "You can only add up to 8 media items."),
+});
