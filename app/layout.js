@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import Footer from "@/components/ui/Footer";
+import Banner from "@/components/ui/Banner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased overflow-x-hidden`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Banner />
           <Navbar />
           <main className="mx-auto max-w-[80rem] grid">{children}</main>
           <Toaster />

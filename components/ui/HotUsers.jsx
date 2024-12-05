@@ -28,7 +28,7 @@ const HotUsers = () => {
   }, []); // No need to add `users` in dependencies as `setUsers` updates state
 
   return (
-    <div className="w-full max-hf">
+    <div className="w-full py-2">
       <div className="px-2 text-center pb-5">
         <h2 className="text-2xl font-bold">Hot Users</h2>
         <h3 className="text-muted-foreground text-sm">

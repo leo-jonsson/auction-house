@@ -93,7 +93,11 @@ const ProfilePage = ({ username }) => {
               <Link href={`/listings/${listing.id}`} key={idx}>
                 <Card className="overflow-hidden mb-3 relative">
                   <img
-                    src={listing.media[0]?.url}
+                    src={
+                      listing.media[0]
+                        ? listing.media[0].url
+                        : "/placeholder.png"
+                    }
                     alt={listing.media[0]?.alt}
                     className="object-cover w-full h-full"
                   />

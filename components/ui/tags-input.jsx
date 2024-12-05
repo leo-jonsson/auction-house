@@ -191,7 +191,7 @@ export const TagsInput = forwardRef(
           ref={ref}
           dir={dir}
           className={cn(
-            "flex items-center flex-wrap gap-1 p-1 rounded-lg bg-background overflow-hidden ring-1 ring-muted",
+            "flex items-center flex-wrap gap-1 p-1 rounded-md bg-background overflow-hidden border",
             activeIndex === -1 && "focus-within:ring-ring",
             className
           )}
@@ -230,7 +230,7 @@ export const TagsInput = forwardRef(
             onChange={handleChange}
             placeholder={placeholder}
             className={cn(
-              "outline-0 border-none h-7 min-w-fit flex-1 placeholder:text-muted-foreground px-1",
+              "outline-0 border-none h-7 min-w-fit flex-1 placeholder:text-muted-foreground px-1 ring-0 focus:ring-none",
               activeIndex !== -1 && "caret-transparent"
             )}
           />
