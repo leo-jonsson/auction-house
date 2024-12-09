@@ -66,7 +66,13 @@ const ProfileTable = ({ listings }) => {
                     size="icon"
                     variant="destructive"
                     onClick={async () => {
-                      await new ListingAPI().listings.delete(listing.id);
+                      try {
+                        await new ListingAPI().listings.delete(listing.id)
+                      } catch (error) {
+                        throw error
+                      } finally {
+                        window.location.reload()
+                      };
                     }}
                   >
                     <Trash2 />

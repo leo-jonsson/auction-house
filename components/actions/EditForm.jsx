@@ -83,7 +83,7 @@ const EditForm = ({ listing }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-4 sm:px-0 w-full mx-auto pt-5"
+      className="space-y-4 sm:px-0 w-full mx-auto py-5"
     >
       <div className="grid gap-2">
         <Label htmlFor="title">Title</Label>
@@ -180,7 +180,7 @@ const EditForm = ({ listing }) => {
         </div>
       ) : (
         <div className="flex gap-2">
-          <Button type="submit" className="w-full basis-2/3">
+          <Button type="submit" variant="outline" className="w-full basis-2/3">
             Save Changes
           </Button>
           <AlertDialog>

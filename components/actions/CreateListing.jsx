@@ -63,7 +63,7 @@ export default function AuctionForm() {
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Title</FormLabel>
+              <FormLabel>Title *</FormLabel>
               <FormControl>
                 <Input
                   placeholder="What are you selling?"
@@ -82,7 +82,7 @@ export default function AuctionForm() {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              <FormLabel>Description (max 280 characters)</FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="Tell us more about the thing you are selling"
@@ -98,7 +98,7 @@ export default function AuctionForm() {
 
         <div className="flex gap-4">
           <div className="w-full">
-            <FormLabel>Media</FormLabel>
+            <FormLabel>Media *</FormLabel>
             {fields.map((media, index) => (
               <div key={media.id} className="flex gap-4 mb-4 mt-3">
                 <div className="basis-2/3 w-full">
@@ -167,7 +167,7 @@ export default function AuctionForm() {
             name="endsAt"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Ending date</FormLabel>
+                <FormLabel>Ending date *</FormLabel>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
