@@ -1,90 +1,80 @@
-"use client";
-
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Slider } from "@/components/ui/slider";
-import { ArrowUpDown, X } from "lucide-react";
+} from "../ui/select";
+import { Switch } from "../ui/switch";
+import { Label } from "../ui/label";
+import { Button } from "../ui/button";
+import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 
-export function ListingFilters({
-  onSortChange,
-  onPriceRangeChange,
-  onAvailableOnlyChange,
-  onReset,
-}) {
-  const [priceRange, setPriceRange] = useState([0, 1000]);
-  const [availableOnly, setAvailableOnly] = useState(false);
-
-  const handlePriceRangeChange = (value) => {
-    const newRange = [value[0], value[1]];
-    setPriceRange(newRange);
-    onPriceRangeChange(newRange);
+const ListingFilters = ({
+  sortOrder,
+  setSortOrder,
+  sort,
+  setSort,
+  active,
+  setActive,
+}) => {
+  // Handle value changes directly from the Select component
+  const handleSortChange = (value) => {
+    setSort(value);
   };
 
-  const handleAvailableOnlyChange = (checked) => {
-    setAvailableOnly(checked);
-    onAvailableOnlyChange(checked);
-  };
-
-  const handleReset = () => {
-    setPriceRange([0, 1000]);
-    setAvailableOnly(false);
-    onReset();
+  const handleActiveChange = (checked) => {
+    setActive(checked); // checked is directly passed by Switch
   };
 
   return (
-    <div className="bg-background mb-6 p-4 shadow">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0 md:space-x-4">
-        <div className="w-full md:w-1/4">
-          <Select onValueChange={onSortChange}>
-            <SelectTrigger>
-              <SelectValue placeholder="Sort by" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="price-asc">Price: Low to High</SelectItem>
-              <SelectItem value="price-desc">Price: High to Low</SelectItem>
-              <SelectItem value="date-asc">Date: Oldest First</SelectItem>
-              <SelectItem value="date-desc">Date: Newest First</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="w-full md:w-2/5">
-          <Label htmlFor="price-range" className="mb-2 block">
-            Price Range: ${priceRange[0]} - ${priceRange[1]}
-          </Label>
-          <Slider
-            id="price-range"
-            min={0}
-            max={1000}
-            step={10}
-            value={priceRange}
-            onValueChange={handlePriceRangeChange}
-            className="w-full"
+    <div className="flex max-md:flex-wrap justify-center gap-4 p-4 w-[90%] border rounded-lg mx-auto shadow-md">
+      {/* Sort Selector */}
+      <Select value={sort} onValueChange={handleSortChange}>
+        <SelectTrigger className="max-w-[20rem] w-full">
+          <SelectValue placeholder="Sort by" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>Sort by</SelectLabel>
+            <SelectItem value="created">Date - Created</SelectItem>
+            <SelectItem value="endsAt">Date - Deadline</SelectItem>
+            <SelectItem value="title">Title - A-Z</SelectItem>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+      <Button
+        variant="ghost"
+        onClick={() => {
+          {
+            sortOrder === "asc" ? setSortOrder("desc") : setSortOrder("asc");
+          }
+        }}
+      >
+        <span>Sort order</span>
+        <span className="flex items-center">
+          <FaArrowUp
+            className={`${sortOrder === "asc" ? "text-foreground" : "text-muted-foreground/80"} -translate-y-0.5`}
           />
-        </div>
-
-        <div className="flex items-center space-x-2">
-          <Switch
-            id="available-only"
-            checked={availableOnly}
-            onCheckedChange={handleAvailableOnlyChange}
+          <FaArrowDown
+            className={`${sortOrder === "asc" ? "text-muted-foreground/80" : "text-foreground"} translate-y-0.5`}
           />
-          <Label htmlFor="available-only">Available Only</Label>
-        </div>
+        </span>
+      </Button>
 
-        <Button variant="outline" size="icon" onClick={handleReset}>
-          <X className="h-4 w-4" />
-        </Button>
+      {/* toggle between active true and false */}
+      <div className="flex items-center gap-3">
+        <Switch
+          checked={active}
+          onCheckedChange={handleActiveChange}
+          className="ml-2"
+        />
+        <Label>Available only</Label>
       </div>
     </div>
   );
-}
+};
+
+export default ListingFilters;

@@ -4,19 +4,44 @@ import { useState, useEffect } from "react";
 import ListingFetcher from "../actions/ListingsFetcher";
 import ListingGrid from "../ui/ListingGrid";
 import PaginationControls from "../actions/Pagination";
+import ListingFilters from "../actions/ListingFilters";
 
 const Listings = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [listings, setListings] = useState([]);
   const [limit] = useState(21);
   const [totalPages, setTotalPages] = useState(1);
-  const [page, setPage] = useState(1); // State for page number
+  const [page, setPage] = useState(1);
 
+  // Filter states
+  const [sort, setSort] = useState("created");
+  const [sortOrder, setSortOrder] = useState("desc");
+  const [active, setActive] = useState(true);
+
+  // Read filters from URL params
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const pageParam = parseInt(params.get("page")) || 1;
+    const sortParam = params.get("sort") || "created";
+    const sortOrderParam = params.get("sortOrder") || "desc";
+    const activeParam = params.get("active") === "false" ? false : true;
+
     setPage(pageParam);
-  }, []); // This effect runs once, when the component mounts
+    setSort(sortParam);
+    setSortOrder(sortOrderParam);
+    setActive(activeParam);
+  }, []);
+
+  // Update URL when filters change
+  useEffect(() => {
+    const params = new URLSearchParams({
+      page,
+      sort,
+      sortOrder,
+      active,
+    });
+    window.history.pushState(null, "", `?${params.toString()}`);
+  }, [page, sort, sortOrder, active]);
 
   // Function to scroll smoothly to the top
   const scrollToTop = () => {
@@ -28,31 +53,38 @@ const Listings = () => {
 
   const handleNextPage = () => {
     if (page < totalPages) {
-      // Update the URL manually
-      window.history.pushState(null, "", `?page=${page + 1}`);
-      setPage(page + 1); // Update state for page
-      scrollToTop(); // Scroll to top when changing page
+      setPage(page + 1);
+      scrollToTop();
     }
   };
 
   const handlePrevPage = () => {
     if (page > 1) {
-      // Update the URL manually
-      window.history.pushState(null, "", `?page=${page - 1}`);
-      setPage(page - 1); // Update state for page
-      scrollToTop(); // Scroll to top when changing page
+      setPage(page - 1);
+      scrollToTop();
     }
   };
 
   return (
     <section className="grid gap-5 mt-10">
       <h1 className="text-5xl px-3 text-center">Listings</h1>
+      <ListingFilters
+        sort={sort}
+        setSort={setSort}
+        sortOrder={sortOrder}
+        setSortOrder={setSortOrder}
+        active={active}
+        setActive={setActive}
+      />
       <ListingFetcher
         limit={limit}
         page={page}
         setListings={setListings}
         setTotalPages={setTotalPages}
         setIsLoading={setIsLoading}
+        sort={sort}
+        sortOrder={sortOrder}
+        active={active}
       />
       <ListingGrid listings={listings} isLoading={isLoading} limit={limit} />
       <PaginationControls

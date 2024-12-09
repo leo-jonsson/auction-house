@@ -35,7 +35,7 @@ const ListingCard = ({ listing }) => {
             initial={{ opacity: 0 }}
             whileHover={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
-            className="absolute inset-0 flex flex-col justify-between items-center bg-black/75 text-white p-4 opacity-0 group-hover:opacity-100"
+            className="absolute inset-0 flex flex-col justify-between items-center rounded-lg bg-black/75 text-white p-4 opacity-0 group-hover:opacity-100"
           >
             <div className="w-full flex items-center justify-between">
               <div className="flex items-center gap-2">

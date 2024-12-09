@@ -86,7 +86,7 @@ const Navbar = () => {
           <div className="flex items-center gap-5">
             <ul className="flex gap-5 ml-5 text-muted-foreground">
               {links.map((link) => {
-                const isActive = pathname === link.href; // Använd pathname som redan hämtats
+                const isActive = pathname === link.href;
                 return (
                   <li key={link.name} className="md:flex hidden">
                     <Link

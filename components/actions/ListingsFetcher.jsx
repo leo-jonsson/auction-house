@@ -1,4 +1,3 @@
-// ListingFetcher.jsx
 import { useEffect } from "react";
 import ListingAPI from "@/lib/api/listings";
 
@@ -8,15 +7,23 @@ const ListingFetcher = ({
   setListings,
   setTotalPages,
   setIsLoading,
+  sort,
+  sortOrder,
+  active,
 }) => {
   const api = new ListingAPI();
 
   const fetchListings = async (currentPage) => {
     setIsLoading(true);
     try {
-      const data = await api.listings.readAll(currentPage, limit);
+      const data = await api.listings.readAll(
+        currentPage,
+        limit,
+        active,
+        sort,
+        sortOrder
+      );
       setListings(data.data);
-      console.log(data.data);
       setTotalPages(data.meta.pageCount || 1);
     } catch (error) {
       console.error("Error fetching listings:", error);
@@ -27,7 +34,7 @@ const ListingFetcher = ({
 
   useEffect(() => {
     fetchListings(page);
-  }, [page]);
+  }, [page, sort, sortOrder, active]);
 
   return null;
 };
