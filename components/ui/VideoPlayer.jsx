@@ -3,7 +3,7 @@ import BlurFade from "./blur-fade";
 
 const VideoPlayer = () => {
   return (
-    <BlurFade delay={0.2} duration={1} scale inView className="col-span-2">
+    <BlurFade delay={0.2} duration={1} scale inView>
       <div className="relative max-w-full h-full flex items-center justify-center mx-auto">
         {/* Background Blur/Gradient Effect */}
         {/* <div className="absolute inset-0 w-full h-full bg-primary/80 dark:bg-primary/50 blur-3xl rounded-3xl aspect-square m-auto" /> */}

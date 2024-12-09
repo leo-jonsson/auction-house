@@ -52,9 +52,9 @@ const Hero = () => {
   return (
     <section className="relative flex min-h-[90vh] w-full items-center justify-center py-10 overflow-hidden">
       <div className="grid lg:grid-cols-2 items-center">
-        <div className="z-10 flex flex-col items-start gap-5">
+        <div className="z-10 flex flex-col items-center lg:items-start gap-5">
           <BlurFade duration={0.5} delay={0.2}>
-            <h1 className="whitespace-pre-wrap text-start text-5xl sm:text-7xl font-medium tracking-tighter text-black dark:text-white max-w-[40rem] p-2">
+            <h1 className="whitespace-pre-wrap text-center lg:text-start text-5xl sm:text-7xl font-medium tracking-tighter max-w-[40rem] p-2">
               A place to bid on your{" "}
               <span className="text-primary">dream item</span>
             </h1>

@@ -1,7 +1,5 @@
 import React from "react";
 import AnimatedShinyText from "../ui/animated-shiny-text";
-import { ArrowRight, ArrowRightIcon, Star } from "lucide-react";
-import { MockChart } from "../ui/MockChart";
 import { LandingPageChart } from "../ui/LandingPageChart";
 import BlurFade from "../ui/blur-fade";
 import Link from "next/link";
