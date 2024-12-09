@@ -43,7 +43,6 @@ export default function AuctionForm() {
 
   async function onSubmit(values) {
     try {
-      console.log(values);
       const response = await new ListingAPI().listings.create(values);
       window.location.href = `/listings/${response.data.id}`;
     } catch (error) {

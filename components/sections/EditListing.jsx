@@ -38,7 +38,7 @@ const EditListing = () => {
   if (!post) return <div>Listing not found.</div>;
 
   return (
-    <section className="min-h-[80vh] flex flex-col gap-2 items-center justify-center w-full max-w-[45rem] mx-auto px-2">
+    <section className="min-h-[80vh] flex flex-col gap-2 items-center justify-center w-full max-w-[45rem] mx-auto">
       <EditForm listing={post} />
     </section>
   );

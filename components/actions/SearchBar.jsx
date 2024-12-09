@@ -38,7 +38,6 @@ const SearchBar = () => {
     try {
       const data = await api.listings.search(query);
       setResults(data.data);
-      console.log(data.data);
     } catch (error) {
       console.error("Search error:", error);
     } finally {

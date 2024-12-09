@@ -8,7 +8,7 @@ const UserPage = () => {
   const userID = params.id;
 
   return (
-    <section className="sm:px-0 px-2">
+    <section>
       <ProfilePage username={userID} />
     </section>
   );

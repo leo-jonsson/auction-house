@@ -5,7 +5,6 @@ import { useParams } from "next/navigation";
 import ListingAPI from "@/lib/api/listings";
 import SingleListing from "@/components/sections/SingleListing";
 import { Skeleton } from "@/components/ui/skeleton";
-import IntersectionObserverComponent from "@/components/actions/Observer";
 
 const SingleListingPage = () => {
   const params = useParams();
@@ -18,8 +17,6 @@ const SingleListingPage = () => {
       try {
         const data = await new ListingAPI().listings.read(listingId);
         setPost(data.data);
-        console.log(data.data.bids); // Logs bids for debugging
-        console.log(data.data); // Logs entire listing data
       } catch (error) {
         console.error(error);
       } finally {
@@ -37,10 +34,7 @@ const SingleListingPage = () => {
           <Skeleton className="aspect-[3/4] w-full h-full" />
         </div>
       ) : (
-        <>
-          <SingleListing listing={post} />
-          <IntersectionObserverComponent listings={post} />
-        </>
+        <SingleListing listing={post} />
       )}
     </div>
   );

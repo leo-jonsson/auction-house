@@ -34,8 +34,11 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./dropdown-menu";
+
+import { User2 } from "lucide-react";
 
 const Navbar = () => {
   const api = new ProfileAPI();
@@ -121,6 +124,23 @@ const Navbar = () => {
                     </Avatar>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
+                    <DropdownMenuItem asChild>
+                      <div className="flex gap-1 justify-center items-center">
+                        <span>Wallet:</span>
+                        {user.credits} <FaCoins />
+                      </div>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href={`/user/${user.name}`}
+                        className="flex items-center gap-1 justify-center cursor-pointer"
+                      >
+                        <User2 />
+                        Profile
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
                     <DropdownMenuItem className="p-0">
                       <SignOutBtn />
                     </DropdownMenuItem>

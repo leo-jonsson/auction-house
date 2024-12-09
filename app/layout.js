@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Banner />
           <Navbar />
-          <main className="mx-auto max-w-[80rem] grid">{children}</main>
+          <main className="mx-auto max-w-[80rem] grid px-2">{children}</main>
           <Toaster />
           <Footer />
         </ThemeProvider>
