@@ -34,7 +34,10 @@ const images = [
     url: "https://images.unsplash.com/photo-1580130775562-0ef92da028de?q=80&w=1350&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     alt: "poster",
   },
-
+  {
+    url: "https://images.unsplash.com/photo-1577083639236-0f560d3d771c?q=80&w=1367&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    alt: "painting",
+  },
   {
     url: "https://images.unsplash.com/photo-1496293455970-f8581aae0e3b?q=80&w=1413&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     alt: "vinyl",
@@ -42,10 +45,6 @@ const images = [
   {
     url: "https://images.unsplash.com/photo-1581539250439-c96689b516dd?q=80&w=1365&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     alt: "chair",
-  },
-  {
-    url: "https://images.unsplash.com/photo-1577083639236-0f560d3d771c?q=80&w=1367&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    alt: "painting",
   },
 ];
 
