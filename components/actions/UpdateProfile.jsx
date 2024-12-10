@@ -1,93 +1,158 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import React, { useEffect } from "react";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { loggedInUser } from "@/lib/utilities/getUser";
 import ProfileAPI from "@/lib/api/profile";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
 
-const UpdateProfile = ({ data }) => {
-  const [bio, setBio] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState("");
-  const [avatarAlt, setAvatarAlt] = useState("");
+// Define Zod schema with default values and validation
+const updateProfileSchema = z.object({
+  bio: z.string().optional().default(""),
+  avatarUrl: z.string().url("Must be a valid URL").default(""),
+  avatarAlt: z.string().default("Avatar Alt"),
+  bannerUrl: z.string().url("Must be a valid URL").default(""),
+  avatarAlt: z.string().default("Banner Alt"),
+});
 
-  useEffect(() => {
-    if (data) {
-      setBio(data.bio || "");
-      setAvatarUrl(data.avatar?.url || "");
-      setAvatarAlt(data.avatar?.alt || "");
-    }
-  }, [data]);
+const UpdateProfile = ({ data, onProfileUpdate }) => {
+  const form = useForm({
+    resolver: zodResolver(updateProfileSchema),
+    defaultValues: {
+      bio: data?.bio || "",
+      avatarUrl: data?.avatar?.url || "",
+      avatarAlt: data?.avatar?.alt || "",
+      bannerUrl: data?.banner?.url || "",
+      bannerAlt: data?.banner?.alt || "",
+    },
+  });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (values) => {
     const updateData = {
-      bio,
+      bio: values.bio,
       avatar: {
-        url: avatarUrl,
-        alt: avatarAlt,
+        url: values.avatarUrl,
+        alt: values.avatarAlt,
+      },
+      banner: {
+        url: values.bannerUrl,
+        alt: values.bannerAlt,
       },
     };
 
     try {
       await new ProfileAPI().profile.update(loggedInUser.name, updateData);
-      toast.success("Profile updated", {
-        description: "Your profile has been updated.",
-        position: "top-center",
-      });
+      onProfileUpdate(updateData);
     } catch (error) {
       console.error("Failed to update profile:", error);
       toast.error("Update failed", {
         description: "An error occurred. Please try again.",
       });
     } finally {
-      setTimeout(() => {
-        location.reload();
-      }, 1500);
+      toast.success("Success", {
+        description: "Your profile has been updated",
+        position: "top-center",
+      });
     }
   };
 
   return (
-    <form className="grid gap-2" onSubmit={handleSubmit}>
-      <Label htmlFor="username">Username</Label>
-      <Input
-        type="text"
-        id="username"
-        disabled
-        name="username"
-        value={`@${loggedInUser?.name}`}
-        readOnly
-      />
-      <Label htmlFor="bio">Bio</Label>
-      <Input
-        type="text"
-        id="bio"
-        name="bio"
-        value={bio}
-        onChange={(e) => setBio(e.target.value)}
-      />
-      <Label htmlFor="avatar-url">Avatar URL</Label>
-      <Input
-        type="text"
-        id="avatar-url"
-        name="avatar-url"
-        value={avatarUrl}
-        onChange={(e) => setAvatarUrl(e.target.value)}
-      />
-      <Label htmlFor="avatar-alt">Avatar ALT</Label>
-      <Input
-        type="text"
-        id="avatar-alt"
-        name="avatar-alt"
-        value={avatarAlt}
-        onChange={(e) => setAvatarAlt(e.target.value)}
-      />
-      <Button type="submit" className="w-full">
-        Update
-      </Button>
-    </form>
+    <Form {...form}>
+      <form className="grid gap-2" onSubmit={form.handleSubmit(onSubmit)}>
+        <Label htmlFor="username">Username</Label>
+        <Input
+          type="text"
+          id="username"
+          disabled
+          name="username"
+          value={`@${loggedInUser?.name}`}
+          readOnly
+        />
+        <FormField
+          control={form.control}
+          name="bio"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Bio</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter your bio" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="avatarUrl"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Avatar URL</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter avatar URL" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="avatarAlt"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Avatar ALT</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter avatar alt text" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="bannerUrl"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Banner URL</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter avatar URL" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="bannerAlt"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Banner ALT</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter avatar alt text" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <Button type="submit" className="w-full">
+          Update
+        </Button>
+      </form>
+    </Form>
   );
 };
 

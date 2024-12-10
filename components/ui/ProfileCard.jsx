@@ -22,8 +22,13 @@ import Logo from "./Logo";
 const ProfilePage = ({ username }) => {
   const [profile, setProfile] = useState(null);
   const [error, setError] = useState(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const isExpired = (endsAt) => new Date(endsAt) < new Date();
+
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -40,16 +45,29 @@ const ProfilePage = ({ username }) => {
     fetchUser();
   }, [username]);
 
+  const handleProfileUpdate = (updatedData) => {
+    // Merge the updated data with the current profile state
+    setProfile((prevProfile) => ({
+      ...prevProfile,
+      bio: updatedData.bio,
+      avatar: updatedData.avatar,
+      banner: updatedData.banner,
+    }));
+
+    handleCloseDialog(false);
+  };
+
   if (error) return <div>{error}</div>;
   if (!profile)
     return (
-      <div className="absolute inset-0 w-full h-full">
+      <div className="absolute inset-0 w-full h-full z-[999]">
         <Skeleton className="w-full h-full flex justify-center items-center">
           <Logo width={120} height={120} className="animate-spin" />
         </Skeleton>
       </div>
     );
 
+  // users that aren't ourselves...
   if (profile.name !== loggedInUser.name)
     return (
       <div className="flex flex-col w-full items-center gap-5 py-4">
@@ -120,6 +138,7 @@ const ProfilePage = ({ username }) => {
       </div>
     );
 
+  // my profile
   return (
     <div className="pb-10">
       <DotPattern className="-z-10 fixed inset-0 w-full h-full sm:[mask-image:radial-gradient(1500px_circle_at_center,white,transparent)]" />
@@ -127,14 +146,25 @@ const ProfilePage = ({ username }) => {
         Hey {profile.name}👋
       </h1>
       <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-3">
-        <Card>
-          <CardHeader className="flex items-center relative">
-            <Dialog>
+        <Card className="w-full relative overflow-hidden pt-0">
+          <CardHeader className="relative p-0 overflow-hidden">
+            <img
+              src={profile.banner.url}
+              className="aspect-[4/3] h-[14rem] object-cover"
+            />
+            <Avatar className="size-24 z-10 border-2  absolute top-1/2 -translate-y-1/2 left-5">
+              <AvatarImage
+                src={profile?.avatar.url}
+                alt={profile?.avatar.alt}
+              />
+            </Avatar>
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>
                 <Button
-                  className="absolute right-0 top-0"
-                  variant="ghost"
+                  variant="outline"
                   size="icon"
+                  className="absolute top-0 right-2"
+                  onClick={() => setIsDialogOpen(true)}
                 >
                   <Settings />
                   <span className="sr-only">Edit your profile</span>
@@ -142,21 +172,23 @@ const ProfilePage = ({ username }) => {
               </DialogTrigger>
               <DialogContent>
                 <DialogTitle>Edit your profile</DialogTitle>
-                <UpdateProfile data={profile} />
+                <UpdateProfile
+                  data={profile}
+                  onProfileUpdate={handleProfileUpdate}
+                />
               </DialogContent>
             </Dialog>
-            <Avatar className="size-1/2">
-              <AvatarImage
-                src={profile?.avatar.url}
-                alt={profile?.avatar.alt}
-              />
-            </Avatar>
-            <CardTitle>{profile?.name}</CardTitle>
           </CardHeader>
-          <CardContent className="flex justify-center text-muted-foreground">
-            {profile.bio ? <p>{profile.bio}</p> : <p>No bio</p>}
+          <CardContent className="pt-5">
+            <div className="grid gap-5">
+              <div className="grid">
+                <h1 className="text-xl font-bold">{profile.name}</h1>
+                <h2 className="text-muted-foreground">{profile.email}</h2>
+              </div>
+              {profile.bio ? <p>{profile.bio}</p> : <p>No bio</p>}
+            </div>
           </CardContent>
-          <CardFooter className="flex gap-3 items-center justify-center">
+          <CardFooter className="flex gap-3">
             <li className="list-none flex items-center gap-2 bg-muted py-1 px-2 rounded-md">
               {profile._count.wins} <FaTrophy />
             </li>
