@@ -90,6 +90,11 @@ const Hero = () => {
             </BlurFade>
           ))}
         </Link>
+        <DotPattern
+          className={cn(
+            "[mask-image:radial-gradient(300px_circle_at_center,white,transparent)] lg:opacity-0 opacity-100"
+          )}
+        />
       </div>
     </section>
   );

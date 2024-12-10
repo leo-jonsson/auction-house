@@ -284,14 +284,14 @@ const Navbar = () => {
                     </ul>
                   </div>
                   <div className="flex items-center">
-                    <span className="mr-auto">
+                    <SheetClose asChild>
                       <Link
                         href="/auth/login"
                         className="px-4 py-1 bg-primary text-white rounded-lg md:hidden flex"
                       >
                         Login
                       </Link>
-                    </span>
+                    </SheetClose>
                     <span className="ml-auto">
                       <ModeToggle />
                     </span>

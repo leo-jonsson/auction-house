@@ -30,7 +30,7 @@ const ListingFilters = ({
   };
 
   return (
-    <div className="flex max-md:flex-wrap justify-center gap-4 p-4 w-[90%] border rounded-lg mx-auto shadow-md">
+    <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 p-4 rounded-lg mx-auto">
       {/* Sort Selector */}
       <Select value={sort} onValueChange={handleSortChange}>
         <SelectTrigger className="max-w-[20rem] w-full">
@@ -46,6 +46,7 @@ const ListingFilters = ({
         </SelectContent>
       </Select>
       <Button
+        className="mr-auto md:mx-auto"
         variant="ghost"
         onClick={() => {
           {
