@@ -24,15 +24,15 @@ import ListingAPI from "@/lib/api/listings";
 const chartConfig = {
   credits: {
     label: "Credits",
-    color: "#1e40af",
+    color: "#6366f1",
   },
   amount: {
     label: "Bid Amount",
-    color: "#0ea5e9",
+    color: "#1e40af",
   },
   wins: {
     label: "Wins",
-    color: "#d946ef",
+    color: "#3b82f6",
   },
 };
 
@@ -42,29 +42,24 @@ export function ListChart({ id }) {
   useEffect(() => {
     async function fetchChartData() {
       try {
-        // Hämta listing med bids
+        // Fetch listings
         const listing = await new ListingAPI().listings.read(id);
 
-        // Kontrollera hur bids ser ut
-        console.log("Listing Bids:", listing.data.bids);
-
-        // Anta att listing.bids är en array
+        // map the bids on current listing
         const processedData = await Promise.all(
           listing.data.bids.map(async (bid) => {
             const profile = await new ProfileAPI().profile.read(
               bid.bidder.name
             );
             return {
-              name: bid.bidder.name, // XAxis värde
-              credits: profile.data.credits, // Första stapeln
-              wins: profile.data._count.wins, // Tredje stapeln
-              amount: bid.amount, // Andra stapeln
+              name: bid.bidder.name, // XAxis
+              credits: profile.data.credits,
+              wins: profile.data._count.wins,
+              amount: bid.amount,
             };
           })
         );
         processedData.sort((a, b) => a.amount - b.amount);
-
-        console.log("Sorted Data:", processedData);
         setChartData(processedData);
       } catch (error) {
         console.error("Error fetching chart data:", error);

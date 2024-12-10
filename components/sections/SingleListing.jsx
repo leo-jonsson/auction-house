@@ -75,10 +75,10 @@ const SingleListing = ({ listing }) => {
                 listing.seller.name === loggedInUser?.name ? (
                   <Link
                     href={`/listings/edit/${listing.id}`}
-                    className="flex items-center gap-1 bg-primary p-2 rounded-lg text-white
+                    className="flex items-center gap-1 bg-primary py-3 px-7 rounded-xl text-white
                   "
                   >
-                    Manage <Settings />
+                    Manage Listing <Settings />
                   </Link>
                 ) : (
                   <BidForm target={listing} />

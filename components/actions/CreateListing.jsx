@@ -24,8 +24,11 @@ import { Calendar } from "../ui/calendar";
 import { TagsInput } from "../ui/tags-input";
 import ListingAPI from "@/lib/api/listings";
 import { listingSchema } from "@/app/schema";
+import LoadingButton from "../ui/LoadingButton";
 
 export default function AuctionForm() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm({
     resolver: zodResolver(listingSchema),
     defaultValues: {
@@ -43,11 +46,14 @@ export default function AuctionForm() {
 
   async function onSubmit(values) {
     try {
+      setIsLoading(true);
       const response = await new ListingAPI().listings.create(values);
       window.location.href = `/listings/${response.data.id}`;
     } catch (error) {
       console.error("Form submission error", error);
       toast.error("Failed to submit the form. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -220,9 +226,13 @@ export default function AuctionForm() {
           )}
         />
 
-        <Button type="submit" className="w-full">
-          Submit
-        </Button>
+        {!isLoading ? (
+          <Button type="submit" className="w-full">
+            Submit
+          </Button>
+        ) : (
+          <LoadingButton message={"Creating post"} />
+        )}
       </form>
     </Form>
   );

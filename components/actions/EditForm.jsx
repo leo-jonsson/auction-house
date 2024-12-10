@@ -173,14 +173,13 @@ const EditForm = ({ listing }) => {
             type="button"
             className="w-full basis-1/3"
             variant="destructive"
-            onClick={() => alert("Delete function here")}
           >
             Delete Listing
           </Button>
         </div>
       ) : (
         <div className="flex gap-2">
-          <Button type="submit" variant="outline" className="w-full basis-2/3">
+          <Button type="submit" variant="default" className="w-full basis-2/3">
             Save Changes
           </Button>
           <AlertDialog>

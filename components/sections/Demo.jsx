@@ -6,9 +6,9 @@ import BlurFade from "../ui/blur-fade";
 
 const Demo = () => {
   return (
-    <section>
+    <section className="min-h-[90vh] flex items-center justify-center">
       <BlurFade delay={0.2} duration={0.5} inView>
-        <div className="grid lg:grid-cols-2 py-5 px-2 gap-5 bg-background border rounded-lg">
+        <div className="grid lg:grid-cols-2 py-5 px-2 gap-5 bg-muted border rounded-lg">
           <span className="flex flex-col gap-2 justify-between pl-5">
             <div className="grid gap-4">
               <h2 className="sm:text-4xl text-2xl font-bold lg:text-start">
