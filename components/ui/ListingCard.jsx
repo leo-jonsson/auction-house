@@ -71,6 +71,42 @@ const ListingCard = ({ listing }) => {
               </div>
             </div>
           </motion.div>
+          {/* mobile overlay */}
+          <div className="absolute inset-0 flex-col justify-between items-center rounded-lg bg-black/35 text-white p-4 max-md:flex hidden">
+            <div className="w-full flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Avatar className="size-7">
+                  <AvatarImage
+                    src={listing.seller.avatar.url}
+                    alt={listing.seller.name}
+                  />
+                  <AvatarFallback>
+                    {listing.seller.name.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
+                <span className="text-sm font-bold max-w-[13ch] truncate overflow-hidden">
+                  {listing.seller.name.toUpperCase()}
+                </span>
+              </div>
+              <span className="text-foreground text-sm">
+                {timeUntil(listing.endsAt)}
+              </span>
+            </div>
+            <div className="flex w-full justify-end">
+              <p className="sr-only">{listing.title}</p>
+              <div>
+                {listing.bids.length > 0 ? (
+                  <span className="flex items-center justify-end gap-2 text-lg font-semibold">
+                    {highestBid(listing.bids)} <FaCoins />
+                  </span>
+                ) : (
+                  <span className="flex items-center gap-2 text-lg font-semibold">
+                    0 <FaCoins />
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
         </Card>
       </motion.div>
     </Link>

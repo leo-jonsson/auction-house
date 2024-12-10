@@ -86,33 +86,33 @@ const BidForm = ({ target }) => {
   };
 
   return (
-    <div className="w-full mx-auto grid gap-2">
+    <div className="w-full grid gap-2">
       {!hasBidded ? (
         target.bids.length > 0 ? (
           highest.bidder === loggedInUser?.name ? (
-            <span className="text-muted-foreground text-sm">
+            <span className="text-muted-foreground text-sm text-start">
               You are leading this auction with a bid of {highest.amount}{" "}
               credits
             </span>
           ) : (
-            <span className="text-muted-foreground text-sm">
+            <span className="text-muted-foreground text-sm text-start">
               {highest.bidder} has placed the highest bid of {highest.amount}{" "}
               credits.
             </span>
           )
         ) : (
-          <p className="text-center text-sm text-muted-foreground">
+          <p className="text-start text-sm text-muted-foreground">
             No bids yet
           </p>
         )
       ) : (
-        <span className="text-primary text-sm text-center w-full">
+        <span className="text-primary text-sm text-start w-full">
           You just took the lead with {currentBid} credits!
         </span>
       )}
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="flex flex-col items-center justify-center gap-3 mt-5"
+        className="flex flex-col items-start justify-start gap-3 mt-5"
       >
         <div className="flex items-center justify-center sm:w-1/2 w-full">
           <Button
