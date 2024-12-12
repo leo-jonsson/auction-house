@@ -124,8 +124,8 @@ const ProfilePage = ({ username }) => {
                       isExpired(listing.endsAt) ? "flex" : "hidden"
                     }`}
                   >
-                    <span className="m-auto text-white font-bold text-2xl">
-                      SOLD
+                    <span className="m-auto text-white font-bold text-2xl bg-black/60 p-2 rounded-lg backdrop-blur-sm">
+                      EXPIRED
                     </span>
                   </span>
                 </Card>

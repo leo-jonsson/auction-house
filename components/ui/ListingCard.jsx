@@ -1,19 +1,25 @@
-import React from "react";
+import { useState } from "react";
 import { Card, CardContent, CardFooter, CardHeader } from "./card";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { timeUntil } from "@/lib/utilities/date.jsx";
 import Link from "next/link";
 import { FaCoins } from "react-icons/fa";
 import { highestBid } from "@/lib/utilities/highestBid";
-import { motion, inView } from "framer-motion";
+import { motion } from "framer-motion";
+import { Skeleton } from "./skeleton";
 
 const ListingCard = ({ listing }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
   const mainImage = listing.media?.[0];
+
+  const handleImageLoad = () => {
+    setIsLoaded(true);
+  };
 
   return (
     <Link href={`/listings/${listing.id}`}>
       <motion.div
-        initial={{ opacity: 0, translateY: "3rem" }}
+        initial={{ opacity: 0, translateY: "2rem" }}
         transition={{ duration: 0.3 }}
         whileInView={{
           translateY: 0,
@@ -23,9 +29,17 @@ const ListingCard = ({ listing }) => {
       >
         <Card className="relative">
           <CardHeader className="p-0">
+            {!isLoaded && (
+              <div className="w-full h-full min-h-[10rem]flex items-center justify-center">
+                <Skeleton className="aspect-square" />
+              </div>
+            )}
+
             <img
               src={mainImage?.url || "/placeholder.png"}
               alt={mainImage?.alt || "Listing image"}
+              onLoad={handleImageLoad}
+              style={{ display: isLoaded ? "block" : "none" }}
               className="w-full h-full inset-0 min-h-[10rem] rounded-lg"
             />
           </CardHeader>
