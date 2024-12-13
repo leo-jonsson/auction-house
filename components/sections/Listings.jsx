@@ -43,11 +43,10 @@ const Listings = () => {
     window.history.pushState(null, "", `?${params.toString()}`);
   }, [page, sort, sortOrder, active]);
 
-  // Function to scroll smoothly to the top
+  // Function to scroll to top of the window
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
     });
   };
 
@@ -67,7 +66,7 @@ const Listings = () => {
 
   return (
     <section className="grid gap-5 mt-10">
-      <h1 className="text-5xl px-3 text-center">Listings</h1>
+      <h1 className="text-5xl text-center">Listings</h1>
       <ListingFilters
         sort={sort}
         setSort={setSort}
@@ -75,6 +74,7 @@ const Listings = () => {
         setSortOrder={setSortOrder}
         active={active}
         setActive={setActive}
+        setPage={setPage}
       />
       <ListingFetcher
         limit={limit}

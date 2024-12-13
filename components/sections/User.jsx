@@ -8,7 +8,7 @@ const UserPage = () => {
   const userID = params.id;
 
   return (
-    <section>
+    <section className="min-h-screen">
       <ProfilePage username={userID} />
     </section>
   );

@@ -18,15 +18,18 @@ const ListingFilters = ({
   sort,
   setSort,
   active,
+  setPage,
   setActive,
 }) => {
-  // Handle value changes directly from the Select component
+  // Handle value changes directly from the Select component and goes back to page 1
   const handleSortChange = (value) => {
     setSort(value);
+    setPage(1);
   };
 
   const handleActiveChange = (checked) => {
     setActive(checked); // checked is directly passed by Switch
+    setPage(1);
   };
 
   return (

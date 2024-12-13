@@ -1,6 +1,7 @@
 import ListingCard from "../ui/ListingCard";
 import { Skeleton } from "../ui/skeleton";
-import BlurFade from "./blur-fade";
+
+// grid / column layout for all listings page
 
 const ListingGrid = ({ listings, isLoading, limit }) => {
   return (

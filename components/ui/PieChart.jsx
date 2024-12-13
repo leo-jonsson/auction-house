@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "./chart";
 import { TrendingUp } from "lucide-react";
+import Link from "next/link";
 
 const GoalPieChart = () => {
   // Data for the fundraising chart
@@ -103,6 +104,13 @@ const GoalPieChart = () => {
         <div className="leading-none text-muted-foreground">
           Showing total donations for the charity so far
         </div>
+        <Link
+          href="#"
+          target="blank"
+          className="bg-primary py-2 px-5 rounded-full hover:bg-primary/80 transition-colors"
+        >
+          Contribute
+        </Link>
       </CardFooter>
     </Card>
   );

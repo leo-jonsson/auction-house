@@ -171,8 +171,8 @@ const EditForm = ({ listing }) => {
           <LoadingButton message="Saving changes..." />
           <Button
             type="button"
-            className="w-full basis-1/3"
-            variant="destructive"
+            className="w-full basis-1/3 border-destructive hover:text-destructive hover:bg-background"
+            variant="outline"
           >
             Delete Listing
           </Button>
@@ -186,8 +186,8 @@ const EditForm = ({ listing }) => {
             <AlertDialogTrigger asChild>
               <Button
                 type="button"
-                className="w-full basis-1/3"
-                variant="destructive"
+                className="w-full basis-1/3 border-destructive hover:text-destructive hover:bg-background"
+                variant="outline"
               >
                 Delete Listing
               </Button>

@@ -11,6 +11,8 @@ import {
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useRef } from "react";
 
+// component from STYLE UI
+
 export default function ImgSlider({ carouselItems }) {
   const carouselRef = useRef(null);
 
