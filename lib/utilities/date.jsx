@@ -9,16 +9,16 @@ export function timeSince(date) {
   const diffInHours = Math.floor(diffInMinutes / 60); // Convert to hours
 
   if (diffInMinutes < 60) {
-    return `${diffInMinutes} min`;
+    return `${diffInMinutes} min ago`;
   } else if (diffInHours < 24) {
-    return `${diffInHours} hrs`;
+    return `${diffInHours} hrs ago`;
   } else if (diffInHours < 168) {
     // Less than 7 days
     const diffInDays = Math.floor(diffInHours / 24);
-    return `${diffInDays} d`;
+    return `${diffInDays} days ago`;
   } else {
     const diffInWeeks = Math.floor(diffInHours / 168);
-    return `${diffInWeeks} w`;
+    return `${diffInWeeks} weeks ago`;
   }
 }
 
