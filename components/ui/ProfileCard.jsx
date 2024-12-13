@@ -67,7 +67,7 @@ const ProfilePage = ({ username }) => {
       </div>
     );
 
-  // users that aren't ourselves...
+  // users that aren't users?... (its not you)
   if (profile.name !== loggedInUser.name)
     return (
       <div className="flex flex-col w-full items-center gap-5 py-4">
@@ -143,7 +143,7 @@ const ProfilePage = ({ username }) => {
     <div className="pb-10">
       <DotPattern className="-z-10 fixed inset-0 w-full h-full sm:[mask-image:radial-gradient(1500px_circle_at_center,white,transparent)]" />
       <h1 className="text-5xl font-bold text-center py-10">
-        Hey {profile.name}👋
+        Dashboard | {profile.name}
       </h1>
       <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-3">
         <Card className="w-full relative overflow-hidden pt-0">
