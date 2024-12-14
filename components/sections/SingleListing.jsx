@@ -19,6 +19,7 @@ import AnimatedShinyText from "../ui/animated-shiny-text";
 import Timer from "@/lib/utilities/Timer";
 import BlurFade from "../ui/blur-fade";
 import BoxReveal from "../ui/box-reveal";
+import MultiAvatar from "../ui/MultiAvatar";
 
 const SingleListing = ({ listing }) => {
   return (
@@ -49,7 +50,7 @@ const SingleListing = ({ listing }) => {
               </Link>
 
               <h1 className="text-3xl font-bold text-start">{listing.title}</h1>
-              <p className="text-start text-muted-foreground">
+              <p className="text-start text-muted-foreground overflow-x-hidden max-w-[20rem] w-ful">
                 {listing.description}
               </p>
 
@@ -63,6 +64,7 @@ const SingleListing = ({ listing }) => {
                   ))}
               </div>
             </div>
+
             <div className="flex flex-col justify-start items-start gap-2 pt-5 w-full">
               {loggedInUser ? (
                 // Show BidForm if user is logged in
@@ -107,15 +109,20 @@ const SingleListing = ({ listing }) => {
                   </DialogContent>
                 </Dialog>
               ) : null}
+              <div className="flex">
+                {/* only show timer if it's 5 hours or less until bidding is ended */}
+                {listing.endsAt &&
+                  new Date(listing.endsAt) - new Date() <=
+                    5 * 60 * 60 * 1000 && <Timer date={listing.endsAt} />}
+              </div>
             </div>
           </BlurFade>
           <div className="flex flex-col gap-2 items-center">
             <BoxReveal duration={0.8}>
               <ImgSlider carouselItems={listing.media} />
             </BoxReveal>
-            <BoxReveal duration={0.9}>
-              <Timer date={listing.endsAt} />
-            </BoxReveal>
+
+            {listing.bids.length >= 2 && <MultiAvatar bids={listing.bids} />}
           </div>
         </div>
       </div>
