@@ -18,14 +18,13 @@ const HotUsers = () => {
         );
         const sortedData = data.slice(0, 20);
         setUsers(sortedData);
-        console.log(data); // Log the fetched users immediately
       } catch (err) {
         console.error("Error fetching users:", err);
       }
     };
 
     fetchUsers();
-  }, []); // No need to add `users` in dependencies as `setUsers` updates state
+  }, []);
 
   return (
     <div className="w-full py-2">
