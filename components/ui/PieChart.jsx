@@ -15,7 +15,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "./chart";
+import { ChartContainer } from "./chart";
 import { TrendingUp } from "lucide-react";
 import Link from "next/link";
 
@@ -37,10 +37,10 @@ const GoalPieChart = () => {
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Meals for Families</CardTitle>
+        <CardTitle>Monthly goal</CardTitle>
         <CardDescription>
-          Provides nutritious meals to families in need, ensuring no one goes
-          hungry during these challenging times.
+          This pie chart is not telling you any important information. It's just
+          here to fill the space for the bento grid.
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
@@ -104,13 +104,6 @@ const GoalPieChart = () => {
         <div className="leading-none text-muted-foreground">
           Showing total donations for the charity so far
         </div>
-        <Link
-          href="#"
-          target="blank"
-          className="bg-primary py-2 px-5 rounded-full hover:bg-primary/80 transition-colors"
-        >
-          Contribute
-        </Link>
       </CardFooter>
     </Card>
   );

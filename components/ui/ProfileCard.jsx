@@ -142,9 +142,7 @@ const ProfilePage = ({ username }) => {
   return (
     <div className="pb-10">
       <DotPattern className="-z-10 fixed inset-0 w-full h-full sm:[mask-image:radial-gradient(1500px_circle_at_center,white,transparent)]" />
-      <h1 className="text-5xl font-bold text-center py-10">
-        Dashboard | {profile.name}
-      </h1>
+      <h1 className="text-5xl font-bold text-center py-10">{profile.name}</h1>
       <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-3">
         <Card className="w-full relative overflow-hidden pt-0">
           <CardHeader className="relative p-0 overflow-hidden">
