@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import ProfilePage from "../ui/ProfileCard";
+import ProfilePage from "../ui/Profile";
 
 const UserPage = () => {
   const params = useParams();

@@ -5,9 +5,7 @@ import { Switch } from "./switch";
 import { Card } from "./card";
 import { ScrollArea } from "./scroll-area";
 import Link from "next/link";
-import { Button } from "./button";
-import { Trash2 } from "lucide-react";
-import ListingAPI from "@/lib/api/listings";
+import { timeSince } from "@/lib/utilities/date";
 
 const ProfileTable = ({ listings }) => {
   const [showExpired, setShowExpired] = useState(false);
@@ -49,35 +47,23 @@ const ProfileTable = ({ listings }) => {
       <div className="mx-auto pb-3 bg-card">
         <ScrollArea className="h-[20rem] w-full">
           {filteredListings.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 px-2">
+            <div className="grid gap-2 px-2">
               {filteredListings.map((listing, idx) => (
                 <div className="relative" key={idx}>
-                  <Link href={`/listings/${listing.id}`}>
-                    <img
-                      src={listing.media[0]?.url || "/placeholder.png"}
-                      alt=""
-                      className="w-full h-full aspect-[3/4] object-cover rounded-lg border"
-                    />
-                  </Link>
-                  <Button
-                    className={`absolute top-0 right-0 z-20 ${
-                      isExpired(listing.endsAt) ? "flex" : "hidden"
-                    }`}
-                    size="icon"
-                    variant="destructive"
-                    onClick={async () => {
-                      try {
-                        await new ListingAPI().listings.delete(listing.id)
-                      } catch (error) {
-                        throw error
-                      } finally {
-                        window.location.reload()
-                      };
-                    }}
+                  <Link
+                    href={`/listings/${listing.id}`}
+                    className="flex items-center gap-2 justify-between hover:bg-muted py-2 px-1 rounded-md transition-colors"
                   >
-                    <Trash2 />
-                    <span className="sr-only">Delete listing</span>
-                  </Button>
+                    <div className="flex items-center gap-1">
+                      <img
+                        src={listing.media[0]?.url || "/placeholder.png"}
+                        alt=""
+                        className="size-10 rounded-md"
+                      />
+                      <span>{listing.title}</span>
+                    </div>
+                    <span>{timeSince(listing.created)}</span>
+                  </Link>
                 </div>
               ))}
             </div>

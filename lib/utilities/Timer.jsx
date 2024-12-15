@@ -28,11 +28,7 @@ const Timer = ({ date }) => {
 
   // Check if the listing has expired
   if (!timeLeft) {
-    return (
-      <div className="mx-auto flex items-center gap-1 bg-destructive p-2 rounded-md">
-        <span className="text-destructive-foreground">Listing has expired</span>
-      </div>
-    );
+    return null;
   }
 
   // Format the time left into a string

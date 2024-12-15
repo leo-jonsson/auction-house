@@ -5,7 +5,7 @@ import ProfileAPI from "@/lib/api/profile";
 import DotPattern from "./dot-pattern";
 import ProfileTable from "./ProfileTable";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./card";
-import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
+import { Avatar, AvatarImage } from "./avatar";
 import { FaCoins, FaList, FaTrophy } from "react-icons/fa";
 import GoalPieChart from "./PieChart";
 import { MockChart } from "./MockChart";
@@ -132,7 +132,7 @@ const ProfilePage = ({ username }) => {
               </Link>
             ))
           ) : (
-            <span>No world</span>
+            <span>No listings</span>
           )}
         </div>
       </div>

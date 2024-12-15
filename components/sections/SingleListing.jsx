@@ -20,8 +20,11 @@ import Timer from "@/lib/utilities/Timer";
 import BlurFade from "../ui/blur-fade";
 import BoxReveal from "../ui/box-reveal";
 import MultiAvatar from "../ui/MultiAvatar";
+import { timeUntil } from "@/lib/utilities/date";
+import { highestBid } from "@/lib/utilities/highestBid";
 
 const SingleListing = ({ listing }) => {
+  const highest = highestBid(listing.bids, true);
   return (
     <section>
       <div className="grid gap-5 w-full h-full">
@@ -115,11 +118,30 @@ const SingleListing = ({ listing }) => {
                   new Date(listing.endsAt) - new Date() <=
                     5 * 60 * 60 * 1000 && <Timer date={listing.endsAt} />}
               </div>
+              {/* if bidding has ended and there are bids, then display winner of listing */}
+              {new Date(listing.endsAt) < new Date() &&
+                listing.bids.length > 0 && (
+                  <span className="font-bold">
+                    Listing has been sold to{" "}
+                    <Link
+                      href={`/user/${highest.bidder}`}
+                      className="text-primary"
+                    >
+                      {highest.bidder}
+                    </Link>{" "}
+                    for {highest.amount} credits!
+                  </span>
+                )}
             </div>
           </BlurFade>
           <div className="flex flex-col gap-2 items-center">
             <BoxReveal duration={0.8}>
-              <ImgSlider carouselItems={listing.media} />
+              <div className="relative">
+                <ImgSlider carouselItems={listing.media} />
+                <span className="absolute top-10 right-5">
+                  {timeUntil(listing.endsAt)}
+                </span>
+              </div>
             </BoxReveal>
 
             {listing.bids.length >= 2 && <MultiAvatar bids={listing.bids} />}
