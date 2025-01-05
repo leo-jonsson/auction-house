@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import Footer from "@/components/ui/Footer";
 import Banner from "@/components/ui/Banner";
+import { ReactLenis } from "@/lib/utilities/lenis";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -19,15 +20,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} antialiased overflow-x-hidden`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Banner />
-          <Navbar />
-          <main className="mx-auto max-w-[80rem] grid px-2">{children}</main>
-          <Toaster />
-          <Footer />
-        </ThemeProvider>
-      </body>
+      <ReactLenis root>
+        <body className={`${inter.className} antialiased overflow-x-hidden`}>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <Banner />
+            <Navbar />
+            <main className="mx-auto max-w-[80rem] grid px-2">{children}</main>
+            <Toaster />
+            <Footer />
+          </ThemeProvider>
+        </body>
+      </ReactLenis>
     </html>
   );
 }
